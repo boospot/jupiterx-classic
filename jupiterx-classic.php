@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       JupiterX Classic
- * Plugin URI:        https://booskills.com
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin URI:        https://github.com/boospot/jupiterx-classic
+ * Description:       This plugin adds the lost Custom Post Types when migrated from jupiter 6.x to JupiterX
  * Version:           1.0.0
- * Author:            Rao
- * Author URI:        https://booskills.com/rao
+ * Author:            Rao | BooSpot
+ * Author URI:        https://boospot.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       jupiterx-classic

@@ -1,5 +1,10 @@
 <?php
 
+// exit if file is called directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -22,6 +27,9 @@
  */
 class Jupiterx_Classic_Post_Types {
 
+	protected $custom_post_types = array( 'employees', 'faq', 'news', 'testimonial' );
+
+	protected $cpts_loaded = array();
 	/**
 	 * The ID of this plugin.
 	 *
@@ -30,7 +38,6 @@ class Jupiterx_Classic_Post_Types {
 	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
-
 	/**
 	 * The version of this plugin.
 	 *
@@ -55,14 +62,215 @@ class Jupiterx_Classic_Post_Types {
 
 	}
 
+	public function register_post_types() {
+
+
+//		var_dump( get_option( 'jupiterx_classic_cpt' ) );
+
+		$cpts_to_load = $this->get_cpts_to_load();
+
+
+		if ( array_key_exists( 'employees', $cpts_to_load ) ) {
+			$this->cpts_loaded['employees'] = 'employees';
+
+			register_post_type( 'employees', $this->get_employees_args() );
+
+			register_taxonomy( 'employee_category', array( 'employees' ), array(
+				'description'       => '',
+				'labels'            => array(
+					'name'                       => _x( 'Employee Categories', 'taxonomy general name', 'jupiterx-classic' ),
+					'singular_name'              => _x( 'Employee Category', 'taxonomy singular name', 'jupiterx-classic' ),
+					'search_items'               => __( 'Search Employee Categories', 'jupiterx-classic' ),
+					'popular_items'              => __( 'Popular Employee Categories', 'jupiterx-classic' ),
+					'all_items'                  => __( 'All Employee Categories', 'jupiterx-classic' ),
+					'parent_item'                => __( 'Parent Employee Category', 'jupiterx-classic' ),
+					'parent_item_colon'          => __( 'Parent Employee Category:', 'jupiterx-classic' ),
+					'edit_item'                  => __( 'Edit Employee Category', 'jupiterx-classic' ),
+					'view_item'                  => __( 'View Employee Category', 'jupiterx-classic' ),
+					'update_item'                => __( 'Update Employee Category', 'jupiterx-classic' ),
+					'add_new_item'               => __( 'Add New Employee Category', 'jupiterx-classic' ),
+					'new_item_name'              => __( 'New Employee Category Name', 'jupiterx-classic' ),
+					'separate_items_with_commas' => __( 'Separate employee Categories with commas', 'jupiterx-classic' ),
+					'add_or_remove_items'        => __( 'Add or remove employee Categories', 'jupiterx-classic' ),
+					'choose_from_most_used'      => __( 'Choose from the most used employee Categories', 'jupiterx-classic' ),
+					'not_found'                  => __( 'No employee Categories found.', 'jupiterx-classic' ),
+				),
+				'public'            => true,
+				'show_ui'           => true,
+				'show_in_nav_menus' => true,
+				'show_tagcloud'     => true,
+				'meta_box_cb'       => null,
+				'show_admin_column' => true,
+				'hierarchical'      => true,
+				'query_var'         => 'employee_category',
+				'rewrite'           => array(
+					'slug'         => 'employee_category',
+					'with_front'   => true,
+					'hierarchical' => true,
+				),
+				'capabilities'      => array(),
+			) );
+		}
+
+		if ( array_key_exists( 'faq', $cpts_to_load ) ) {
+			$this->cpts_loaded['faq'] = 'faq';
+
+			register_post_type( 'faq', $this->get_faq_args() );
+
+			register_taxonomy( 'employee_category', array( 'employees' ), array(
+				'description'       => '',
+				'labels'            => array(
+					'name'                       => _x( 'Employee Categories', 'taxonomy general name', 'jupiterx-classic' ),
+					'singular_name'              => _x( 'Employee Category', 'taxonomy singular name', 'jupiterx-classic' ),
+					'search_items'               => __( 'Search Employee Categories', 'jupiterx-classic' ),
+					'popular_items'              => __( 'Popular Employee Categories', 'jupiterx-classic' ),
+					'all_items'                  => __( 'All Employee Categories', 'jupiterx-classic' ),
+					'parent_item'                => __( 'Parent Employee Category', 'jupiterx-classic' ),
+					'parent_item_colon'          => __( 'Parent Employee Category:', 'jupiterx-classic' ),
+					'edit_item'                  => __( 'Edit Employee Category', 'jupiterx-classic' ),
+					'view_item'                  => __( 'View Employee Category', 'jupiterx-classic' ),
+					'update_item'                => __( 'Update Employee Category', 'jupiterx-classic' ),
+					'add_new_item'               => __( 'Add New Employee Category', 'jupiterx-classic' ),
+					'new_item_name'              => __( 'New Employee Category Name', 'jupiterx-classic' ),
+					'separate_items_with_commas' => __( 'Separate employee Categories with commas', 'jupiterx-classic' ),
+					'add_or_remove_items'        => __( 'Add or remove employee Categories', 'jupiterx-classic' ),
+					'choose_from_most_used'      => __( 'Choose from the most used employee Categories', 'jupiterx-classic' ),
+					'not_found'                  => __( 'No employee Categories found.', 'jupiterx-classic' ),
+				),
+				'public'            => true,
+				'show_ui'           => true,
+				'show_in_nav_menus' => true,
+				'show_tagcloud'     => true,
+				'meta_box_cb'       => null,
+				'show_admin_column' => true,
+				'hierarchical'      => true,
+				'query_var'         => 'employee_category',
+				'rewrite'           => array(
+					'slug'         => 'employee_category',
+					'with_front'   => true,
+					'hierarchical' => true,
+				),
+				'capabilities'      => array(),
+			) );
+		}
+
+		if ( array_key_exists( 'news', $cpts_to_load ) ) {
+			$this->cpts_loaded['news'] = 'news';
+
+			register_post_type( 'news', $this->get_news_args() );
+
+			register_taxonomy( 'news_category', array( 'news' ), array(
+				'description'       => 'News Category',
+				'labels'            => array(
+					'name'                       => _x( 'News Categories', 'taxonomy general name', 'jupiterx-classic' ),
+					'singular_name'              => _x( 'News Category', 'taxonomy singular name', 'jupiterx-classic' ),
+					'search_items'               => __( 'Search News Categories', 'jupiterx-classic' ),
+					'popular_items'              => __( 'Popular News Categories', 'jupiterx-classic' ),
+					'all_items'                  => __( 'All News Categories', 'jupiterx-classic' ),
+					'parent_item'                => __( 'Parent News Category', 'jupiterx-classic' ),
+					'parent_item_colon'          => __( 'Parent News Category:', 'jupiterx-classic' ),
+					'edit_item'                  => __( 'Edit News Category', 'jupiterx-classic' ),
+					'view_item'                  => __( 'View News Category', 'jupiterx-classic' ),
+					'update_item'                => __( 'Update News Category', 'jupiterx-classic' ),
+					'add_new_item'               => __( 'Add New News Category', 'jupiterx-classic' ),
+					'new_item_name'              => __( 'New News Category Name', 'jupiterx-classic' ),
+					'separate_items_with_commas' => __( 'Separate news Categories with commas', 'jupiterx-classic' ),
+					'add_or_remove_items'        => __( 'Add or remove news Categories', 'jupiterx-classic' ),
+					'choose_from_most_used'      => __( 'Choose from the most used news Categories', 'jupiterx-classic' ),
+					'not_found'                  => __( 'No news Categories found.', 'jupiterx-classic' ),
+				),
+				'public'            => true,
+				'show_ui'           => true,
+				'show_in_nav_menus' => true,
+				'show_tagcloud'     => false,
+				'meta_box_cb'       => null,
+				'show_admin_column' => true,
+				'hierarchical'      => false,
+				'query_var'         => 'news_category',
+				'rewrite'           => array(
+					'slug'         => 'news_category',
+					'with_front'   => true,
+					'hierarchical' => true,
+				),
+				'capabilities'      => array(),
+			) );
+		}
+
+		if ( array_key_exists( 'testimonial', $cpts_to_load ) ) {
+			$this->cpts_loaded['testimonial'] = 'testimonial';
+
+			register_post_type( 'testimonial', $this->get_testimonial_args() );
+
+			register_taxonomy( 'testimonial_category', array( 'testimonial' ), array(
+				'description'       => 'Testimonial Categories',
+				'labels'            => array(
+					'name'                       => _x( 'Testimonail Categories', 'taxonomy general name', 'jupiterx-classic' ),
+					'singular_name'              => _x( 'Testimonail Category', 'taxonomy singular name', 'jupiterx-classic' ),
+					'search_items'               => __( 'Search Testimonail Categories', 'jupiterx-classic' ),
+					'popular_items'              => __( 'Popular Testimonail Categories', 'jupiterx-classic' ),
+					'all_items'                  => __( 'All Testimonail Categories', 'jupiterx-classic' ),
+					'parent_item'                => __( 'Parent Testimonail Category', 'jupiterx-classic' ),
+					'parent_item_colon'          => __( 'Parent Testimonail Category:', 'jupiterx-classic' ),
+					'edit_item'                  => __( 'Edit Testimonail Category', 'jupiterx-classic' ),
+					'view_item'                  => __( 'View Testimonail Category', 'jupiterx-classic' ),
+					'update_item'                => __( 'Update Testimonail Category', 'jupiterx-classic' ),
+					'add_new_item'               => __( 'Add New Testimonail Category', 'jupiterx-classic' ),
+					'new_item_name'              => __( 'New Testimonail Category Name', 'jupiterx-classic' ),
+					'separate_items_with_commas' => __( 'Separate testimonail Categories with commas', 'jupiterx-classic' ),
+					'add_or_remove_items'        => __( 'Add or remove testimonail Categories', 'jupiterx-classic' ),
+					'choose_from_most_used'      => __( 'Choose from the most used testimonail Categories', 'jupiterx-classic' ),
+					'not_found'                  => __( 'No testimonail Categories found.', 'jupiterx-classic' ),
+				),
+				'public'            => true,
+				'show_ui'           => true,
+				'show_in_nav_menus' => true,
+				'show_tagcloud'     => true,
+				'meta_box_cb'       => null,
+				'show_admin_column' => true,
+				'hierarchical'      => true,
+				'query_var'         => 'testimonial_category',
+				'rewrite'           => array(
+					'slug'         => 'testimonial_category',
+					'with_front'   => true,
+					'hierarchical' => true,
+				),
+				'capabilities'      => array(),
+			) );
+		}
+
+
+	}
+
 	/**
 	 * Custom Post Types for Team
 	 *
 	 */
 
-	public function register_post_types() {
+	protected function get_cpts_to_load() {
 
-		register_post_type( 'employees', array(
+		$jupiterx_cpts_to_load = get_option( 'jupiterx_classic_cpt' );
+
+
+		if (
+			$jupiterx_cpts_to_load
+			&& is_array( $jupiterx_cpts_to_load )
+			&& isset( $jupiterx_cpts_to_load['load_cpt'] )
+			&& is_array( $jupiterx_cpts_to_load['load_cpt'] )
+		) {
+			return $jupiterx_cpts_to_load['load_cpt'];
+		} else {
+			return $this->custom_post_types;
+		}
+
+
+	}
+
+	/**
+	 * Get Employees CPT Register Args
+	 */
+	protected function get_employees_args() {
+
+		return apply_filters( 'jxc_cpt_args_employees', array(
 			'description'          => __( 'Employees', 'jupiterx-classic' ),
 			'labels'               => array(
 				'name'               => _x( 'Employees', 'post type general name', 'jupiterx-classic' ),
@@ -88,7 +296,7 @@ class Jupiterx_Classic_Post_Types {
 			'show_in_menu'         => true,
 			'show_in_nav_menus'    => true,
 			'show_in_admin_bar'    => true,
-			'menu_position'        => 20,
+			'menu_position'        => 60,
 			'menu_icon'            => 'dashicons-universal-access',
 			'capability_type'      => 'post',
 			'capabilities'         => array(),
@@ -108,45 +316,14 @@ class Jupiterx_Classic_Post_Types {
 			'show_in_rest'         => true,
 		) );
 
-		register_taxonomy( 'employee_category', array( 'employees' ), array(
-			'description'       => '',
-			'labels'            => array(
-				'name'                       => _x( 'Employee Categories', 'taxonomy general name', 'jupiterx-classic' ),
-				'singular_name'              => _x( 'Employee Category', 'taxonomy singular name', 'jupiterx-classic' ),
-				'search_items'               => __( 'Search Employee Categories', 'jupiterx-classic' ),
-				'popular_items'              => __( 'Popular Employee Categories', 'jupiterx-classic' ),
-				'all_items'                  => __( 'All Employee Categories', 'jupiterx-classic' ),
-				'parent_item'                => __( 'Parent Employee Category', 'jupiterx-classic' ),
-				'parent_item_colon'          => __( 'Parent Employee Category:', 'jupiterx-classic' ),
-				'edit_item'                  => __( 'Edit Employee Category', 'jupiterx-classic' ),
-				'view_item'                  => __( 'View Employee Category', 'jupiterx-classic' ),
-				'update_item'                => __( 'Update Employee Category', 'jupiterx-classic' ),
-				'add_new_item'               => __( 'Add New Employee Category', 'jupiterx-classic' ),
-				'new_item_name'              => __( 'New Employee Category Name', 'jupiterx-classic' ),
-				'separate_items_with_commas' => __( 'Separate employee Categories with commas', 'jupiterx-classic' ),
-				'add_or_remove_items'        => __( 'Add or remove employee Categories', 'jupiterx-classic' ),
-				'choose_from_most_used'      => __( 'Choose from the most used employee Categories', 'jupiterx-classic' ),
-				'not_found'                  => __( 'No employee Categories found.', 'jupiterx-classic' ),
-			),
-			'public'            => true,
-			'show_ui'           => true,
-			'show_in_nav_menus' => true,
-			'show_tagcloud'     => true,
-			'meta_box_cb'       => null,
-			'show_admin_column' => true,
-			'hierarchical'      => true,
-			'query_var'         => 'employee_category',
-			'rewrite'           => array(
-				'slug'         => 'employee_category',
-				'with_front'   => true,
-				'hierarchical' => true,
-			),
-			'capabilities'      => array(),
-		) );
+	}
 
-
-		register_post_type( 'faq', array(
-			'description'          => __( 'Frequenly Asked Questions', 'jupiterx-classic' ),
+	/**
+	 * Get FAQ CPT Register Args
+	 */
+	protected function get_faq_args() {
+		return apply_filters( 'jxc_cpt_args_faqs', array(
+			'description'          => __( 'Frequently Asked Questions', 'jupiterx-classic' ),
 			'labels'               => array(
 				'name'               => _x( 'FAQs', 'post type general name', 'jupiterx-classic' ),
 				'singular_name'      => _x( 'FAQ', 'post type singular name', 'jupiterx-classic' ),
@@ -191,45 +368,14 @@ class Jupiterx_Classic_Post_Types {
 			'show_in_rest'         => true,
 		) );
 
+	}
 
-		register_taxonomy( 'faq_category', array( 'faq' ), array(
-			'description'       => 'FAQ Category',
-			'labels'            => array(
-				'name'                       => _x( 'Faq Categories', 'taxonomy general name', 'jupitrx-classic' ),
-				'singular_name'              => _x( 'Faq Category', 'taxonomy singular name', 'jupitrx-classic' ),
-				'search_items'               => __( 'Search Faq Categories', 'jupitrx-classic' ),
-				'popular_items'              => __( 'Popular Faq Categories', 'jupitrx-classic' ),
-				'all_items'                  => __( 'All Faq Categories', 'jupitrx-classic' ),
-				'parent_item'                => __( 'Parent Faq Category', 'jupitrx-classic' ),
-				'parent_item_colon'          => __( 'Parent Faq Category:', 'jupitrx-classic' ),
-				'edit_item'                  => __( 'Edit Faq Category', 'jupitrx-classic' ),
-				'view_item'                  => __( 'View Faq Category', 'jupitrx-classic' ),
-				'update_item'                => __( 'Update Faq Category', 'jupitrx-classic' ),
-				'add_new_item'               => __( 'Add New Faq Category', 'jupitrx-classic' ),
-				'new_item_name'              => __( 'New Faq Category Name', 'jupitrx-classic' ),
-				'separate_items_with_commas' => __( 'Separate faq Categories with commas', 'jupitrx-classic' ),
-				'add_or_remove_items'        => __( 'Add or remove faq Categories', 'jupitrx-classic' ),
-				'choose_from_most_used'      => __( 'Choose from the most used faq Categories', 'jupitrx-classic' ),
-				'not_found'                  => __( 'No faq Categories found.', 'jupitrx-classic' ),
-			),
-			'public'            => true,
-			'show_ui'           => true,
-			'show_in_nav_menus' => true,
-			'show_tagcloud'     => true,
-			'meta_box_cb'       => null,
-			'show_admin_column' => true,
-			'hierarchical'      => true,
-			'query_var'         => 'faq_category',
-			'rewrite'           => array(
-				'slug'         => 'faq_category',
-				'with_front'   => true,
-				'hierarchical' => true,
-			),
-			'capabilities'      => array(),
-		) );
+	/**
+	 * Get News CPT Register Args
+	 */
+	protected function get_news_args() {
 
-
-		register_post_type( 'news', array(
+		return apply_filters( 'jxc_cpt_args_news', array(
 			'description'          => __( 'News', 'jupiterx-classic' ),
 			'labels'               => array(
 				'name'               => _x( 'News', 'post type general name', 'jupiterx-classic' ),
@@ -275,44 +421,13 @@ class Jupiterx_Classic_Post_Types {
 			'show_in_rest'         => true,
 		) );
 
-		register_taxonomy( 'news_category', array( 'news' ), array(
-			'description'       => 'News Category',
-			'labels'            => array(
-				'name'                       => _x( 'News Categories', 'taxonomy general name', 'jupiterx-classic' ),
-				'singular_name'              => _x( 'News Category', 'taxonomy singular name', 'jupiterx-classic' ),
-				'search_items'               => __( 'Search News Categories', 'jupiterx-classic' ),
-				'popular_items'              => __( 'Popular News Categories', 'jupiterx-classic' ),
-				'all_items'                  => __( 'All News Categories', 'jupiterx-classic' ),
-				'parent_item'                => __( 'Parent News Category', 'jupiterx-classic' ),
-				'parent_item_colon'          => __( 'Parent News Category:', 'jupiterx-classic' ),
-				'edit_item'                  => __( 'Edit News Category', 'jupiterx-classic' ),
-				'view_item'                  => __( 'View News Category', 'jupiterx-classic' ),
-				'update_item'                => __( 'Update News Category', 'jupiterx-classic' ),
-				'add_new_item'               => __( 'Add New News Category', 'jupiterx-classic' ),
-				'new_item_name'              => __( 'New News Category Name', 'jupiterx-classic' ),
-				'separate_items_with_commas' => __( 'Separate news Categories with commas', 'jupiterx-classic' ),
-				'add_or_remove_items'        => __( 'Add or remove news Categories', 'jupiterx-classic' ),
-				'choose_from_most_used'      => __( 'Choose from the most used news Categories', 'jupiterx-classic' ),
-				'not_found'                  => __( 'No news Categories found.', 'jupiterx-classic' ),
-			),
-			'public'            => true,
-			'show_ui'           => true,
-			'show_in_nav_menus' => true,
-			'show_tagcloud'     => false,
-			'meta_box_cb'       => null,
-			'show_admin_column' => true,
-			'hierarchical'      => false,
-			'query_var'         => 'news_category',
-			'rewrite'           => array(
-				'slug'         => 'news_category',
-				'with_front'   => true,
-				'hierarchical' => true,
-			),
-			'capabilities'      => array(),
-		) );
+	}
 
-
-		register_post_type( 'testimonial', array(
+	/**
+	 * Get Testimonial CPT Register Args
+	 */
+	protected function get_testimonial_args() {
+		return apply_filters( 'jxc_cpt_args_testimonial', array(
 			'description'          => __( 'Client Tetimonials', 'jupiterx-classic' ),
 			'labels'               => array(
 				'name'               => _x( 'Testimonials', 'post type general name', 'jupiterx-classic' ),
@@ -330,10 +445,10 @@ class Jupiterx_Classic_Post_Types {
 				'parent_item_colon'  => __( 'Parent Testimonial:', 'jupiterx-classic' ),
 				'all_items'          => __( 'All Testimonials', 'jupiterx-classic' ),
 			),
-			'public'               => true,
+			'public'               => false,
 			'hierarchical'         => false,
 			'exclude_from_search'  => true,
-			'publicly_queryable'   => true,
+			'publicly_queryable'   => false,
 			'show_ui'              => true,
 			'show_in_menu'         => true,
 			'show_in_nav_menus'    => true,
@@ -357,46 +472,7 @@ class Jupiterx_Classic_Post_Types {
 			'can_export'           => true,
 			'show_in_rest'         => true,
 		) );
-
-		register_taxonomy( 'testimonial_category', array( 'testimonial' ), array(
-			'description'       => 'Testimonial Categories',
-			'labels'            => array(
-				'name'                       => _x( 'Testimonail Categories', 'taxonomy general name', 'jupiterx-classic' ),
-				'singular_name'              => _x( 'Testimonail Category', 'taxonomy singular name', 'jupiterx-classic' ),
-				'search_items'               => __( 'Search Testimonail Categories', 'jupiterx-classic' ),
-				'popular_items'              => __( 'Popular Testimonail Categories', 'jupiterx-classic' ),
-				'all_items'                  => __( 'All Testimonail Categories', 'jupiterx-classic' ),
-				'parent_item'                => __( 'Parent Testimonail Category', 'jupiterx-classic' ),
-				'parent_item_colon'          => __( 'Parent Testimonail Category:', 'jupiterx-classic' ),
-				'edit_item'                  => __( 'Edit Testimonail Category', 'jupiterx-classic' ),
-				'view_item'                  => __( 'View Testimonail Category', 'jupiterx-classic' ),
-				'update_item'                => __( 'Update Testimonail Category', 'jupiterx-classic' ),
-				'add_new_item'               => __( 'Add New Testimonail Category', 'jupiterx-classic' ),
-				'new_item_name'              => __( 'New Testimonail Category Name', 'jupiterx-classic' ),
-				'separate_items_with_commas' => __( 'Separate testimonail Categories with commas', 'jupiterx-classic' ),
-				'add_or_remove_items'        => __( 'Add or remove testimonail Categories', 'jupiterx-classic' ),
-				'choose_from_most_used'      => __( 'Choose from the most used testimonail Categories', 'jupiterx-classic' ),
-				'not_found'                  => __( 'No testimonail Categories found.', 'jupiterx-classic' ),
-			),
-			'public'            => true,
-			'show_ui'           => true,
-			'show_in_nav_menus' => true,
-			'show_tagcloud'     => true,
-			'meta_box_cb'       => null,
-			'show_admin_column' => true,
-			'hierarchical'      => true,
-			'query_var'         => 'testimonial_category',
-			'rewrite'           => array(
-				'slug'         => 'testimonial_category',
-				'with_front'   => true,
-				'hierarchical' => true,
-			),
-			'capabilities'      => array(),
-		) );
-
-
 	}
-
 
 	/**
 	 * Removes Default Jupiter X Header section that contains title, title and breadcrumbs
@@ -404,12 +480,33 @@ class Jupiterx_Classic_Post_Types {
 
 	public function remove_jupiterx_main_header() {
 
-		if ( 'employees' == get_post_type( get_the_ID() ) && function_exists( 'jupiterx_remove_action' ) ) {
-			jupiterx_remove_action( 'jupiterx_main_header' );
-		};
+
+		if ( ! is_single() || ! function_exists( 'jupiterx_remove_action' ) || ! $this->is_remove_jupiterx_header() ) {
+			return null;
+		}
+
+		$post_type = get_post_type( get_the_ID() );
+
+		foreach ( $this->cpts_loaded as $cpt ) {
+			if ( $post_type == $cpt ) {
+				jupiterx_remove_action( 'jupiterx_main_header' );
+			}
+		}
+//
+//		if ( 'employees' == get_post_type( get_the_ID() ) && function_exists( 'jupiterx_remove_action' ) ) {
+//			jupiterx_remove_action( 'jupiterx_main_header' );
+//		};
 
 	}
 
+	/**
+	 *
+	 */
+	public function is_remove_jupiterx_header() {
+
+		return apply_filters( 'jxc_remove_jupiter_x_header', true );
+
+	}
 
 	/**
 	 * Adds a default single view template for custom Post types
@@ -463,442 +560,438 @@ class Jupiterx_Classic_Post_Types {
 	 */
 	public function load_acf_fields_employees() {
 
-		if( function_exists('acf_add_local_field_group') ):
+		if ( function_exists( 'acf_add_local_field_group' ) ):
 
-			acf_add_local_field_group(array(
-				'key' => 'group_5c3c272852acb',
-				'title' => 'Employees Settings',
-				'fields' => array(
+			acf_add_local_field_group( array(
+				'key'                   => 'group_5c3c272852acb',
+				'title'                 => 'Employees Settings',
+				'fields'                => array(
 					array(
-						'key' => 'field_5c3c2dbd0fe34',
-						'label' => 'Single Employee Page?',
-						'name' => '_single_post',
-						'type' => 'select',
-						'instructions' => 'If you enable this option, This employee member will have a single post so you can add extra content in above editor.',
-						'required' => 0,
+						'key'               => 'field_5c3c2dbd0fe34',
+						'label'             => 'Single Employee Page?',
+						'name'              => '_single_post',
+						'type'              => 'select',
+						'instructions'      => 'If you enable this option, This employee member will have a single post so you can add extra content in above editor.',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'choices' => array(
+						'choices'           => array(
 							'false' => 'No',
-							'true' => 'Yes Please',
+							'true'  => 'Yes Please',
 						),
-						'default_value' => array(
-						),
-						'allow_null' => 1,
-						'multiple' => 0,
-						'ui' => 0,
-						'return_format' => 'value',
-						'ajax' => 0,
-						'placeholder' => '',
+						'default_value'     => array(),
+						'allow_null'        => 1,
+						'multiple'          => 0,
+						'ui'                => 0,
+						'return_format'     => 'value',
+						'ajax'              => 0,
+						'placeholder'       => '',
 					),
 					array(
-						'key' => 'field_5c3c2f5ebd3e9',
-						'label' => 'Single Post Layout',
-						'name' => '_employees_single_layout',
-						'type' => 'select',
-						'instructions' => 'Choose single post layout style.',
-						'required' => 0,
+						'key'               => 'field_5c3c2f5ebd3e9',
+						'label'             => 'Single Post Layout',
+						'name'              => '_employees_single_layout',
+						'type'              => 'select',
+						'instructions'      => 'Choose single post layout style.',
+						'required'          => 0,
 						'conditional_logic' => array(
 							array(
 								array(
-									'field' => 'field_5c3c2dbd0fe34',
+									'field'    => 'field_5c3c2dbd0fe34',
 									'operator' => '==',
-									'value' => 'true',
+									'value'    => 'true',
 								),
 							),
 						),
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'choices' => array(
+						'choices'           => array(
 							'style1' => 'Style 1',
 							'style2' => 'Style 2',
 							'style3' => 'Style 3',
 						),
-						'default_value' => array(
-						),
-						'allow_null' => 1,
-						'multiple' => 0,
-						'ui' => 0,
-						'return_format' => 'value',
-						'ajax' => 0,
-						'placeholder' => '',
+						'default_value'     => array(),
+						'allow_null'        => 1,
+						'multiple'          => 0,
+						'ui'                => 0,
+						'return_format'     => 'value',
+						'ajax'              => 0,
+						'placeholder'       => '',
 					),
 					array(
-						'key' => 'field_5c3c27462ed28',
-						'label' => 'Employee Position',
-						'name' => '_position',
-						'type' => 'text',
-						'instructions' => 'Please enter team member\'s Position in the company.',
-						'required' => 0,
+						'key'               => 'field_5c3c27462ed28',
+						'label'             => 'Employee Position',
+						'name'              => '_position',
+						'type'              => 'text',
+						'instructions'      => 'Please enter team member\'s Position in the company.',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3c30612fdd3',
-						'label' => 'Header Hero Background Image',
-						'name' => '_header_hero_bg_image',
-						'type' => 'image',
-						'instructions' => 'Upload an image for single post > style 3 layout > header hero background image. Best image size for this field is 1920px * 550px. (Specific to style 3)',
-						'required' => 0,
+						'key'               => 'field_5c3c30612fdd3',
+						'label'             => 'Header Hero Background Image',
+						'name'              => '_header_hero_bg_image',
+						'type'              => 'image',
+						'instructions'      => 'Upload an image for single post > style 3 layout > header hero background image. Best image size for this field is 1920px * 550px. (Specific to style 3)',
+						'required'          => 0,
 						'conditional_logic' => array(
 							array(
 								array(
-									'field' => 'field_5c3c2f5ebd3e9',
+									'field'    => 'field_5c3c2f5ebd3e9',
 									'operator' => '==',
-									'value' => 'style3',
+									'value'    => 'style3',
 								),
 							),
 						),
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'return_format' => 'url',
-						'preview_size' => 'thumbnail',
-						'library' => 'all',
-						'min_width' => '',
-						'min_height' => '',
-						'min_size' => '',
-						'max_width' => '',
-						'max_height' => '',
-						'max_size' => '',
-						'mime_types' => '',
+						'return_format'     => 'url',
+						'preview_size'      => 'thumbnail',
+						'library'           => 'all',
+						'min_width'         => '',
+						'min_height'        => '',
+						'min_size'          => '',
+						'max_width'         => '',
+						'max_height'        => '',
+						'max_size'          => '',
+						'mime_types'        => '',
 					),
 					array(
-						'key' => 'field_5c3c30b32fdd4',
-						'label' => 'Header Hero Background Color',
-						'name' => '_header_hero_bg_color',
-						'type' => 'color_picker',
-						'instructions' => 'choose a color for single post > style 3 layout > header hero background color. (Specific to style 3)',
-						'required' => 0,
+						'key'               => 'field_5c3c30b32fdd4',
+						'label'             => 'Header Hero Background Color',
+						'name'              => '_header_hero_bg_color',
+						'type'              => 'color_picker',
+						'instructions'      => 'choose a color for single post > style 3 layout > header hero background color. (Specific to style 3)',
+						'required'          => 0,
 						'conditional_logic' => array(
 							array(
 								array(
-									'field' => 'field_5c3c2f5ebd3e9',
+									'field'    => 'field_5c3c2f5ebd3e9',
 									'operator' => '==',
-									'value' => 'style3',
+									'value'    => 'style3',
 								),
 							),
 						),
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '#666666',
+						'default_value'     => '#666666',
 					),
 					array(
-						'key' => 'field_5c3c3136c90ae',
-						'label' => 'Header Hero Content Skin',
-						'name' => '_header_hero_skin',
-						'type' => 'select',
-						'instructions' => 'Specific to style 3',
-						'required' => 0,
+						'key'               => 'field_5c3c3136c90ae',
+						'label'             => 'Header Hero Content Skin',
+						'name'              => '_header_hero_skin',
+						'type'              => 'select',
+						'instructions'      => 'Specific to style 3',
+						'required'          => 0,
 						'conditional_logic' => array(
 							array(
 								array(
-									'field' => 'field_5c3c2f5ebd3e9',
+									'field'    => 'field_5c3c2f5ebd3e9',
 									'operator' => '==',
-									'value' => 'style3',
+									'value'    => 'style3',
 								),
 							),
 						),
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'choices' => array(
+						'choices'           => array(
 							'light' => 'Light',
-							'dark' => 'Dark',
+							'dark'  => 'Dark',
 						),
-						'default_value' => array(
-						),
-						'allow_null' => 0,
-						'multiple' => 0,
-						'ui' => 0,
-						'return_format' => 'value',
-						'ajax' => 0,
-						'placeholder' => '',
+						'default_value'     => array(),
+						'allow_null'        => 0,
+						'multiple'          => 0,
+						'ui'                => 0,
+						'return_format'     => 'value',
+						'ajax'              => 0,
+						'placeholder'       => '',
 					),
 					array(
-						'key' => 'field_5c3c324b2cfef',
-						'label' => 'About Member',
-						'name' => '_desc',
-						'type' => 'wysiwyg',
-						'instructions' => 'This text will be shown in employees loop. To show content in single employee, you should add your content into above WP editor.',
-						'required' => 0,
+						'key'               => 'field_5c3c324b2cfef',
+						'label'             => 'About Member',
+						'name'              => '_desc',
+						'type'              => 'wysiwyg',
+						'instructions'      => 'This text will be shown in employees loop. To show content in single employee, you should add your content into above WP editor.',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'tabs' => 'all',
-						'toolbar' => 'full',
-						'media_upload' => 1,
-						'delay' => 0,
+						'default_value'     => '',
+						'tabs'              => 'all',
+						'toolbar'           => 'full',
+						'media_upload'      => 1,
+						'delay'             => 0,
 					),
 					array(
-						'key' => 'field_5c3c32cd2cff0',
-						'label' => 'Email Address',
-						'name' => '_email',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
+						'key'               => 'field_5c3c32cd2cff0',
+						'label'             => 'Email Address',
+						'name'              => '_email',
+						'type'              => 'text',
+						'instructions'      => '',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3c32eb2cff1',
-						'label' => 'Social Network (Facebook)',
-						'name' => '_facebook',
-						'type' => 'text',
-						'instructions' => 'Please enter full URL of this social network(include http://).',
-						'required' => 0,
+						'key'               => 'field_5c3c32eb2cff1',
+						'label'             => 'Social Network (Facebook)',
+						'name'              => '_facebook',
+						'type'              => 'text',
+						'instructions'      => 'Please enter full URL of this social network(include http://).',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3c332b2cff3',
-						'label' => 'Social Network (Twitter)',
-						'name' => '_twitter',
-						'type' => 'text',
-						'instructions' => 'Please enter full URL of this social network(include http://).',
-						'required' => 0,
+						'key'               => 'field_5c3c332b2cff3',
+						'label'             => 'Social Network (Twitter)',
+						'name'              => '_twitter',
+						'type'              => 'text',
+						'instructions'      => 'Please enter full URL of this social network(include http://).',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3c33412cff4',
-						'label' => 'Social Network (Google Plus)',
-						'name' => '_googleplus',
-						'type' => 'text',
-						'instructions' => 'Please enter full URL of this social network(include http://).',
-						'required' => 0,
+						'key'               => 'field_5c3c33412cff4',
+						'label'             => 'Social Network (Google Plus)',
+						'name'              => '_googleplus',
+						'type'              => 'text',
+						'instructions'      => 'Please enter full URL of this social network(include http://).',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3c33512cff5',
-						'label' => 'Social Network (Linked In)',
-						'name' => '_linkedin',
-						'type' => 'text',
-						'instructions' => 'Please enter full URL of this social network(include http://).',
-						'required' => 0,
+						'key'               => 'field_5c3c33512cff5',
+						'label'             => 'Social Network (Linked In)',
+						'name'              => '_linkedin',
+						'type'              => 'text',
+						'instructions'      => 'Please enter full URL of this social network(include http://).',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3c33602cff6',
-						'label' => 'Social Network (Instagram)',
-						'name' => '_instagram',
-						'type' => 'text',
-						'instructions' => 'Please enter full URL of this social network(include http://).',
-						'required' => 0,
+						'key'               => 'field_5c3c33602cff6',
+						'label'             => 'Social Network (Instagram)',
+						'name'              => '_instagram',
+						'type'              => 'text',
+						'instructions'      => 'Please enter full URL of this social network(include http://).',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 				),
-				'location' => array(
+				'location'              => array(
 					array(
 						array(
-							'param' => 'post_type',
+							'param'    => 'post_type',
 							'operator' => '==',
-							'value' => 'employees',
+							'value'    => 'employees',
 						),
 					),
 				),
-				'menu_order' => 0,
-				'position' => 'normal',
-				'style' => 'default',
-				'label_placement' => 'left',
+				'menu_order'            => 0,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'left',
 				'instruction_placement' => 'field',
-				'hide_on_screen' => '',
-				'active' => 1,
-				'description' => '',
-			));
+				'hide_on_screen'        => '',
+				'active'                => 1,
+				'description'           => '',
+			) );
 
 		endif;
 
 	}
-
 
 	/**
 	 * Load Testimonial ACF Fields
 	 */
 	public function load_acf_fields_testimonial() {
 
-		if( function_exists('acf_add_local_field_group') ):
+		if ( function_exists( 'acf_add_local_field_group' ) ):
 
-			acf_add_local_field_group(array(
-				'key' => 'group_5c3f0cb931bd3',
-				'title' => 'Testimonial Options',
-				'fields' => array(
+			acf_add_local_field_group( array(
+				'key'                   => 'group_5c3f0cb931bd3',
+				'title'                 => 'Testimonial Options',
+				'fields'                => array(
 					array(
-						'key' => 'field_5c3f0ce447124',
-						'label' => 'Author Name',
-						'name' => '_author',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
+						'key'               => 'field_5c3f0ce447124',
+						'label'             => 'Author Name',
+						'name'              => '_author',
+						'type'              => 'text',
+						'instructions'      => '',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3f0cf447125',
-						'label' => 'Company Name / Job Title',
-						'name' => '_company',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
+						'key'               => 'field_5c3f0cf447125',
+						'label'             => 'Company Name / Job Title',
+						'name'              => '_company',
+						'type'              => 'text',
+						'instructions'      => '',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
+						'prepend'           => '',
+						'append'            => '',
+						'maxlength'         => '',
 					),
 					array(
-						'key' => 'field_5c3f0d0a47126',
-						'label' => 'URL To Author\'s Website (Optional)',
-						'name' => '_url',
-						'type' => 'url',
-						'instructions' => 'include http:// or https://',
-						'required' => 0,
+						'key'               => 'field_5c3f0d0a47126',
+						'label'             => 'URL To Author\'s Website (Optional)',
+						'name'              => '_url',
+						'type'              => 'url',
+						'instructions'      => 'include http:// or https://',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'placeholder' => '',
+						'default_value'     => '',
+						'placeholder'       => '',
 					),
 					array(
-						'key' => 'field_5c3f0d2f47127',
-						'label' => 'Quote',
-						'name' => '_desc',
-						'type' => 'wysiwyg',
-						'instructions' => 'Please fill below area with the quote',
-						'required' => 0,
+						'key'               => 'field_5c3f0d2f47127',
+						'label'             => 'Quote',
+						'name'              => '_desc',
+						'type'              => 'wysiwyg',
+						'instructions'      => 'Please fill below area with the quote',
+						'required'          => 0,
 						'conditional_logic' => 0,
-						'wrapper' => array(
+						'wrapper'           => array(
 							'width' => '',
 							'class' => '',
-							'id' => '',
+							'id'    => '',
 						),
-						'default_value' => '',
-						'tabs' => 'all',
-						'toolbar' => 'full',
-						'media_upload' => 1,
-						'delay' => 0,
+						'default_value'     => '',
+						'tabs'              => 'all',
+						'toolbar'           => 'full',
+						'media_upload'      => 1,
+						'delay'             => 0,
 					),
 				),
-				'location' => array(
+				'location'              => array(
 					array(
 						array(
-							'param' => 'post_type',
+							'param'    => 'post_type',
 							'operator' => '==',
-							'value' => 'testimonial',
+							'value'    => 'testimonial',
 						),
 					),
 				),
-				'menu_order' => 0,
-				'position' => 'normal',
-				'style' => 'default',
-				'label_placement' => 'left',
+				'menu_order'            => 0,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'left',
 				'instruction_placement' => 'field',
-				'hide_on_screen' => '',
-				'active' => 1,
-				'description' => '',
-			));
+				'hide_on_screen'        => '',
+				'active'                => 1,
+				'description'           => '',
+			) );
 
 		endif;
 

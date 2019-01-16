@@ -115,8 +115,6 @@ class Jupiterx_Classic {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-jupiterx-classic-global.php';
 
 
-
-
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
@@ -170,6 +168,7 @@ class Jupiterx_Classic {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
+
 
 		$plugin_admin = new Jupiterx_Classic_Admin( $this->get_plugin_name(), $this->get_version() );
 
@@ -244,7 +243,6 @@ class Jupiterx_Classic {
 
 		// Load Fields for Employees
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_employees' );
-
 		// Load Fields for Testimonials
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_testimonial' );
 
