@@ -306,7 +306,7 @@ class Jupiterx_Classic_Post_Types {
 			'taxonomies'           => array( 'employees_category' ),
 			'has_archive'          => true,
 			'rewrite'              => array(
-				'slug'       => 'team',
+				'slug'       => 'employee',
 				'with_front' => true,
 				'feeds'      => true,
 				'pages'      => true,
