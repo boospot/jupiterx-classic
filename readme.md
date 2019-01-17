@@ -43,7 +43,17 @@ No, There is no working done for the front end, So, the following will NOT work 
 * shortcodes for these post types.
 
 **Can i control which Post types to register**
-Yes, Please go to WprdPress Admin > Settings > JupiterX Classic
+
+Yes, Please go to `WordPress Admin > Settings > JupiterX Classic` 
+
+**I get 404 errors, what is wrong?**
+
+Pleas go to `WordPress Admin > Settings > Permalinks` and re-save these by clicking "Save Changes" button.
+
+**Have any Question, that is not answered?**
+
+If you have any other query or question, please [Please fill-in this form](https://docs.google.com/forms/d/e/1FAIpQLSdRb5-hNLWRHHgJLba_wwpkaw2PYUBiALxBVwu_stajUuR44Q/viewform)
+
 
 ---
 ## Installation
