@@ -181,6 +181,10 @@ class Jupiterx_Classic_Admin {
 				'id'    => 'jupiterx_classic_cpt',
 				'title' => __( 'Custom Post Types Control', 'jupiterx-classic' ),
 			),
+			array(
+				'id'    => 'jupiterx_classic_settings',
+				'title' => __( 'Other Settings', 'jupiterx-classic' ),
+			),
 		);
 
 		return $sections;
@@ -210,6 +214,20 @@ class Jupiterx_Classic_Admin {
 						'news'        => __( 'News', 'jupiterx-classic' ),
 						'testimonial' => __( 'Testimonial', 'jupiterx-classic' ),
 					)
+				),
+			),
+
+			'jupiterx_classic_settings' => array(
+				array(
+					'name'    => 'load_elementor',
+					'label'   => __( 'Include Elementor Support', 'jupiterx-classic' ),
+					'desc'    => __( 'This is in test phase, so, please activate at your own risk.', 'jupiterx-classic' ),
+					'type'    => 'checkbox',
+//					'options' => array(
+//						'yes' => 'Yes',
+//						'no'    =>  'No'
+//					),
+//					'default' => array( 'no'   => 'no'),
 				),
 			)
 		);

@@ -81,7 +81,7 @@ class Jupiterx_Classic {
 
 
 		$this->define_post_type_hooks();
-
+		$this->initiate_elementor_integration();
 	}
 
 	/**
@@ -137,6 +137,13 @@ class Jupiterx_Classic {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-jupiterx-classic-post-types.php';
+
+
+		/**
+		 * The class responsible for defining all actions that occur in the public-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-jupiterx-classic-elementor.php';
 
 
 		$this->loader = new Jupiterx_Classic_Loader();
@@ -245,6 +252,24 @@ class Jupiterx_Classic {
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_employees' );
 		// Load Fields for Testimonials
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_testimonial' );
+
+	}
+
+	/**
+	 *
+	 */
+	public function initiate_elementor_integration() {
+
+		$other_settings = get_option( 'jupiterx_classic_settings' );
+
+
+		$load_elementor = ( ! empty( $other_settings ) && is_array( $other_settings ) && isset( $other_settings['load_elementor'] ) ) ? $other_settings['load_elementor'] : 'off';
+
+		if ( 'on' == $load_elementor ) {
+//			die();
+			Elementor_Test_Extension::instance();
+
+		}
 
 	}
 
