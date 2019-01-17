@@ -6,7 +6,8 @@ This plugin adds the lost Custom Post Types when migrated from jupiter 6.x to Ju
 
 ## Description
 
-This Plugin is an effort to bring back all the data added to Post types offered by Jupiter 6.
+When migrating to JupiterX from the old jupiter version (like 6.x, 5.x etc), All the data added to Custom post types (Employees, Testimonials, News, FAQs) is no more accessible.  This Plugin is an effort to bring back all the data of these Post types.
+
 Head to FAQ section for details. 
 
 If this plugin saved you some hours of Copy-Paste, consider buying me a coffee. [buymeacoff.ee/raoabid](https://buymeacoff.ee/raoabid)
@@ -25,6 +26,7 @@ It adds following Post types:
 * Testimonials
 * News
 * FAQs
+* If you need more, please [Please fill-in this form](https://docs.google.com/forms/d/e/1FAIpQLSdRb5-hNLWRHHgJLba_wwpkaw2PYUBiALxBVwu_stajUuR44Q/viewform)
 
 **Will i get all my data Back?**
 
