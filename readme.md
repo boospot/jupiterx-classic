@@ -44,9 +44,20 @@ No, There is no working done for the front end, So, the following will NOT work 
 ---
 ## Installation
 
-1. Download your WordPress Plugin to your desktop.
+**Install via WordPress Admin**
+1. Click on "Clone or Download" green button.
+1. Select "Download ZIP" to download the plugin .zip file
+1. Log in to your WordPress Site dashboard.
+1. Go to “Plugins -> Add New”
+1. Click on "Upload Plugin", choose the .zip file downloaded.
+1. Click to “Install Now” button.
+1. Activate the plugin by clicking “Activate”.
+
+
+**Upload via FTP**
+1. Click on "Clone or Download" green button.
+1. Select "Download ZIP" to download the plugin .zip file
 1. If downloaded as a zip archive, extract the Plugin folder to your desktop.
-1. Read through the “readme” file thoroughly to ensure you follow the installation instructions.
 1. With your FTP program, upload the Plugin folder to the wp-content/plugins folder in your WordPress directory online.
 1. Go to Plugins screen and find the newly uploaded Plugin in the list.
 1. Click Activate to activate it.
