@@ -1,6 +1,6 @@
 # JupiterX Classic
 
-This plugin adds the lost Custom Post Types when migrated from jupiter 6.x to JupiterX
+This WordPress plugin adds the lost Custom Post Types when migrated from jupiter 6.x to JupiterX
 
 ---
 
@@ -14,6 +14,8 @@ If this plugin saved you some hours of Copy-Paste, consider buying me a coffee. 
 
 If you need more from this plugin, 
 **[Please fill-in this form](https://docs.google.com/forms/d/e/1FAIpQLSdRb5-hNLWRHHgJLba_wwpkaw2PYUBiALxBVwu_stajUuR44Q/viewform)** to request features for this plugin.
+
+**NOTE:** This plugin or its author(s) have no affiliation what-so-ever with jupiter theme, jupiterX theme or its developers [Artbees](http://artbees.net).
 
 ---
 ## Frequently Asked Questions
