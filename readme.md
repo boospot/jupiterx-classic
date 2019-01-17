@@ -41,6 +41,10 @@ No, There is no working done for the front end, So, the following will NOT work 
 * single post type
 * archive pages for these post types
 * shortcodes for these post types.
+
+**Can i control which Post types to register**
+Yes, Please go to WprdPress Admin > Settings > JupiterX Classic
+
 ---
 ## Installation
 
