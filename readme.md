@@ -11,6 +11,9 @@ Head to FAQ section for details.
 
 If this plugin saved you some hours of Copy-Paste, consider buying me a coffee. [buymeacoff.ee/raoabid](https://buymeacoff.ee/raoabid)
 
+If you need more from this plugin, 
+**[Please fill-in this form](https://docs.google.com/forms/d/e/1FAIpQLSdRb5-hNLWRHHgJLba_wwpkaw2PYUBiALxBVwu_stajUuR44Q/viewform)** to request features for this plugin.
+
 ---
 ## Frequently Asked Questions
 
