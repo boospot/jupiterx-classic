@@ -36,11 +36,14 @@ Yes, you will get all your data back related to these post types. All the custom
 
 **The Frontend for these post types will be same as Jupiter 6 ?**
 
-No, There is no working done for the front end, So, the following will NOT work as before:
+No, There is partial working done for the front end, So, the following will work:
 
-* single post type
-* archive pages for these post types
-* shortcodes for these post types.
+* **single post type**
+    * Employees
+* **archive pages for these post types**
+    * Employees
+* **shortcodes for these post types.**
+    * For employees `[mk_employees]`
 
 **Can i control which Post types to register**
 
@@ -81,11 +84,17 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 ---
 ##Changelog
 
+= 1.1.0 =
+* Support for Employees Post Type Added. 
+
 = 1.0.0 =
 * Initial Release
 
 
 **Upgrade Notice**
+
+= 1.1.0 =
+* Support for Employees Post Type Added. Upgrade to get working shortcodes
 
 = 1.0.0 =
 * Initial Release
