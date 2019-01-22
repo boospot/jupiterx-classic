@@ -13,6 +13,9 @@
 class Jupiterx_Classic_Global {
 
 
+
+	protected static $custom_post_types = array( 'employees', 'faq', 'news', 'testimonial' );
+
 	/**
 	 * Returns the path to a template file
 	 *
@@ -84,5 +87,25 @@ class Jupiterx_Classic_Global {
 
 	} // get_template()
 
+
+
+	public static function get_cpts_to_load() {
+
+		$jupiterx_cpts_to_load = get_option( 'jupiterx_classic_cpt' );
+
+
+		if (
+			$jupiterx_cpts_to_load
+			&& is_array( $jupiterx_cpts_to_load )
+			&& isset( $jupiterx_cpts_to_load['load_cpt'] )
+			&& is_array( $jupiterx_cpts_to_load['load_cpt'] )
+		) {
+			return $jupiterx_cpts_to_load['load_cpt'];
+		} else {
+			return self::$custom_post_types;
+		}
+
+
+	}
 
 }

@@ -67,7 +67,7 @@ class Jupiterx_Classic_Post_Types {
 
 //		var_dump( get_option( 'jupiterx_classic_cpt' ) );
 
-		$cpts_to_load = $this->get_cpts_to_load();
+		$cpts_to_load = Jupiterx_Classic_Global::get_cpts_to_load();
 
 
 		if ( array_key_exists( 'employees', $cpts_to_load ) ) {
@@ -238,29 +238,7 @@ class Jupiterx_Classic_Post_Types {
 			) );
 		}
 
-
-	}
-
-	/**
-	 * Custom Post Types for Team
-	 *
-	 */
-
-	protected function get_cpts_to_load() {
-
-		$jupiterx_cpts_to_load = get_option( 'jupiterx_classic_cpt' );
-
-
-		if (
-			$jupiterx_cpts_to_load
-			&& is_array( $jupiterx_cpts_to_load )
-			&& isset( $jupiterx_cpts_to_load['load_cpt'] )
-			&& is_array( $jupiterx_cpts_to_load['load_cpt'] )
-		) {
-			return $jupiterx_cpts_to_load['load_cpt'];
-		} else {
-			return $this->custom_post_types;
-		}
+		add_image_size( 'employees-large', 500, 500, true );
 
 
 	}
@@ -269,6 +247,21 @@ class Jupiterx_Classic_Post_Types {
 	 * Get Employees CPT Register Args
 	 */
 	protected function get_employees_args() {
+
+		$employees_slug_option = get_option( 'jupiterx_classic_employees', true );
+
+//		var_dump( $employees_slug_option); die();
+
+		if ( empty( $employees_slug_option ) ) {
+			$employee_slug = 'employees';
+		} else {
+			$employees_slug_option = ( isset( $employees_slug_option['employees_slug'] ) ) ? sanitize_key( $employees_slug_option['employees_slug'] ) : 'employees';
+
+			$employee_slug = !empty($employees_slug_option) ? $employees_slug_option : 'employees';
+
+
+		}
+
 
 		return apply_filters( 'jxc_cpt_args_employees', array(
 			'description'          => __( 'Employees', 'jupiterx-classic' ),
@@ -306,7 +299,7 @@ class Jupiterx_Classic_Post_Types {
 			'taxonomies'           => array( 'employees_category' ),
 			'has_archive'          => true,
 			'rewrite'              => array(
-				'slug'       => 'employee',
+				'slug'       => $employee_slug,
 				'with_front' => true,
 				'feeds'      => true,
 				'pages'      => true,
@@ -522,6 +515,27 @@ class Jupiterx_Classic_Post_Types {
 		if ( $post->post_type == 'employees' ) {
 
 			$template = Jupiterx_Classic_Global::get_template( $template, 'single-employees' );
+
+		}
+
+		return $template;
+
+	}
+
+	/**
+	 * Adds a default single view template for custom Post types
+	 *
+	 * @param    string $template The name of the template
+	 *
+	 * @return    mixed                        The single template
+	 */
+	public function load_archive_template( $template ) {
+
+		global $post;
+
+		if ( $post->post_type == 'employees' ) {
+
+			$template = Jupiterx_Classic_Global::get_template( $template, 'archive-employees' );
 
 		}
 
@@ -994,6 +1008,80 @@ class Jupiterx_Classic_Post_Types {
 			) );
 
 		endif;
+
+	}
+
+	public function alter_query_to_add_recipe_posttype( $query ) {
+
+		if ( is_admin() ) {
+			return $query;
+		}
+
+		if ( $query->is_main_query() &&
+		     ( is_post_type_archive( 'employees' ) || is_tax( array( 'employee_category', ) ) )
+		) {
+
+			$query->set( 'post_type', 'employees' );
+
+			// Set Recipes Per Page
+//			$recipes_per_page = ( absint( $this->get_options_value( 'recipes_per_page' ) ) > 0 ) ? absint( $this->get_options_value( 'recipes_per_page' ) ) : 9;
+//
+//
+//			$query->set( 'posts_per_page', $recipes_per_page );
+//
+//
+//			// Add Keyword Search to the Query
+//			if ( $this->is_search_form_submitted() ) {
+//
+//				$search_keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( $_GET['keyword'] ) : false;
+//
+//				if ( $search_keyword ) {
+//
+//					$custom_meta = array();
+//
+//					$current_meta = $query->get( 'meta_query' );
+//
+//
+//					$custom_meta[] = array(
+//						'key'     => 'boorecipe-recipe-meta',
+//						'value'   => $search_keyword,
+//						'compare' => 'LIKE'
+//					);
+//
+//
+//					$meta_query = $current_meta = $custom_meta;
+//
+//					$query->set( 'meta_query', array( $meta_query ) );
+//
+//				}
+//
+//			}
+
+		}
+
+	}
+
+	/**
+	 * Custom Post Types for Team
+	 *
+	 */
+
+	protected function get_cpts_to_load() {
+
+		$jupiterx_cpts_to_load = get_option( 'jupiterx_classic_cpt' );
+
+
+		if (
+			$jupiterx_cpts_to_load
+			&& is_array( $jupiterx_cpts_to_load )
+			&& isset( $jupiterx_cpts_to_load['load_cpt'] )
+			&& is_array( $jupiterx_cpts_to_load['load_cpt'] )
+		) {
+			return $jupiterx_cpts_to_load['load_cpt'];
+		} else {
+			return $this->custom_post_types;
+		}
+
 
 	}
 

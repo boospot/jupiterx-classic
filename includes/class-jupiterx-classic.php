@@ -81,6 +81,7 @@ class Jupiterx_Classic {
 
 
 		$this->define_post_type_hooks();
+		$this->define_shortcode_hooks();
 		$this->initiate_elementor_integration();
 	}
 
@@ -138,6 +139,9 @@ class Jupiterx_Classic {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-jupiterx-classic-post-types.php';
 
+
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-jupiterx-classic-shortcodes.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -240,6 +244,8 @@ class Jupiterx_Classic {
 
 		$this->loader->add_filter( 'single_template', $plugin_cpt, 'load_single_template' );
 
+		$this->loader->add_filter( 'archive_template', $plugin_cpt, 'load_archive_template' );
+
 
 		// When using Metabox.io
 //		$this->loader->add_filter( 'rwmb_meta_boxes', $plugin_cpt, 'get_testimonial_metabox' );
@@ -252,6 +258,23 @@ class Jupiterx_Classic {
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_employees' );
 		// Load Fields for Testimonials
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_testimonial' );
+
+
+		// Update Query for custom post type
+		$this->loader->add_action( 'pre_get_posts', $plugin_cpt, 'alter_query_to_add_recipe_posttype' );
+
+	}
+
+
+	/**
+	 * Shortcode Hooks
+	 */
+	public function define_shortcode_hooks() {
+
+		$plugin_shortcode = new Jupiterx_Classic_Shortcodes( $this->get_plugin_name(), $this->get_version() );
+
+		add_shortcode( 'mk_employees', array( $plugin_shortcode , 'mk_employees'));
+
 
 	}
 

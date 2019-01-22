@@ -9,6 +9,7 @@ if ( have_posts() ) {
 	while ( have_posts() ) : the_post(); ?>
 
 		<?php
+
 		$style                = esc_attr( get_post_meta( $post->ID, '_employees_single_layout', true ) );
 		$header_hero_skin     = esc_attr( get_post_meta( $post->ID, '_header_hero_skin', true ) );
 		$header_hero_bg_color = esc_attr( get_post_meta( $post->ID, '_header_hero_bg_color', true ) );
@@ -75,7 +76,10 @@ if ( have_posts() ) {
 			<?php if ( $style == 'style1' ): ?>
                 <div class="mk-employee-container employee-style-1">
                     <div class="single-employee-sidebar a_display-inline-block a_float-left">
-						<?php the_post_thumbnail( $post->ID ); ?>
+						<?php
+//                        the_post_thumbnail( $post->ID  );
+						echo get_the_post_thumbnail( null, 'employees-large') ;
+                        ?>
 						<?php mk_employees_meta_information(); ?>
                     </div>
                     <div class="single-employee-content">

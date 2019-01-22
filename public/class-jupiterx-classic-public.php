@@ -76,10 +76,17 @@ class Jupiterx_Classic_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/jupiterx-classic-public.css', array(), $this->version, 'all' );
 
+		wp_register_style( $this->plugin_name . '-archive-employee', plugin_dir_url( __FILE__ ) . 'css/jupiterx-classic-archive-employee.css', array(), $this->version, 'all' );
 
 		if ( is_singular( array( 'employees' ) ) ) {
 			wp_enqueue_style( $this->plugin_name . '-employee', plugin_dir_url( __FILE__ ) . 'css/jupiterx-classic-employee.css', array(), $this->version, 'all' );
 		}
+
+
+		if ( is_post_type_archive( 'employees' ) ) {
+			wp_enqueue_style( $this->plugin_name . '-archive-employee' );
+		}
+
 
 	}
 

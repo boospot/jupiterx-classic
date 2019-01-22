@@ -187,6 +187,16 @@ class Jupiterx_Classic_Admin {
 			),
 		);
 
+		$cpts_to_load = Jupiterx_Classic_Global::get_cpts_to_load();
+
+		if ( array_key_exists( 'employees', $cpts_to_load ) ) {
+			$sections[] = 	array(
+				'id'    => 'jupiterx_classic_employees',
+				'title' => __( 'Employees', 'jupiterx-classic' ),
+			);
+		}
+
+
 		return $sections;
 	}
 
@@ -229,7 +239,21 @@ class Jupiterx_Classic_Admin {
 //					),
 //					'default' => array( 'no'   => 'no'),
 				),
-			)
+			),
+
+
+
+			'jupiterx_classic_employees' => array(
+			array(
+				'name'    => 'employees_slug',
+				'label'   => __( 'Employees Post type Slug', 'jupiterx-classic' ),
+				'desc'    => __( 'Update this value and re-save permalinks', 'jupiterx-classic' ),
+				'type'    => 'text',
+				'placeholder' => 'employees',
+				'sanitize_callback' => 'sanitize_text_field'
+			),
+		)
+
 		);
 
 		return $settings_fields;
