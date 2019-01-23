@@ -84,6 +84,9 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 ---
 ##Changelog
 
+= 1.2.0 =
+* Added support for News Shortcode `[mk_news]`
+
 = 1.1.1 =
 * Fix: Minor Shortcode issues resolved
 
