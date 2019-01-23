@@ -54,6 +54,7 @@
         -ms-flex: 0 1 calc(50% - .5em);
         flex: 0 1 calc(50% - .5em);
         margin-bottom: 1em;
+        flex-direction: column;
     }
 }
 

@@ -176,6 +176,8 @@ class Jupiterx_Classic_Shortcodes {
 
 		wp_enqueue_style( $this->plugin_name . '-archive-employee' );
 
+		wp_enqueue_style( 'font-awesome' );
+
 		$query_args = array(
 			'post_type'      => 'employees',
 			'post_status'    => 'publish',

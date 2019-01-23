@@ -12,8 +12,9 @@ $is_single = get_post_meta( get_the_ID(), '_single_post', true );
 $is_single = ( $is_single == 'true' ) ? true : false;
 
 $job_title   = get_post_meta( get_the_ID(), '_position', true );
-$description = get_post_meta( get_the_ID(), '_desc', true );
+$description_text = get_post_meta( get_the_ID(), '_desc', true );
 
+$show_description = isset($description) && ($description == 'false') ? false : true;
 
 $email      = get_post_meta( get_the_ID(), '_email', true );
 $linkedin   = get_post_meta( get_the_ID(), '_linkedin', true );
@@ -62,8 +63,8 @@ $output .= '</ul>';
 			<h2 itemprop="name"><?php echo get_the_title(); ?></h2>
 
 			<?php
-			if ( $description ) { ?>
-				<div itemprop="knowsAbout"><?php echo $description; ?></div>
+			if ( $show_description ) { ?>
+				<div itemprop="knowsAbout"><?php echo $description_text; ?></div>
 			<?php }
 //			var_export( $image_attributes );
 

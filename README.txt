@@ -4,7 +4,7 @@ Donate link: https://boospot.com/rao
 Tags: comments, spam
 Requires at least: 4.5
 Tested up to: 5.0.3
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,12 @@ No, There is no working done for the front end, So, the following will NOT work 
 * shortcodes for these post types.
 
 == Changelog ==
+
+= 1.1.1 =
+* Fix: Minor Shortcode issues resolved
+
+= 1.1.0 =
+* Employees Shortcode support added
 
 = 1.0.0 =
 * Initial Release

@@ -84,6 +84,9 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 ---
 ##Changelog
 
+= 1.1.1 =
+* Fix: Minor Shortcode issues resolved
+
 = 1.1.0 =
 * Support for Employees Post Type Added. 
 
@@ -92,6 +95,9 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 
 
 **Upgrade Notice**
+
+= 1.1.1 =
+* Fix: Minor Shortcode issues resolved
 
 = 1.1.0 =
 * Support for Employees Post Type Added. Upgrade to get working shortcodes

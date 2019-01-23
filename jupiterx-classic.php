@@ -16,7 +16,7 @@
  * Plugin Name:       JupiterX Classic
  * Plugin URI:        https://github.com/boospot/jupiterx-classic
  * Description:       This plugin adds the lost Custom Post Types when migrated from jupiter 6.x to JupiterX
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Rao | BooSpot
  * Author URI:        https://boospot.com/
  * License:           GPL-2.0+
