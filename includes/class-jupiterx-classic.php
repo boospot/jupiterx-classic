@@ -140,7 +140,6 @@ class Jupiterx_Classic {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-jupiterx-classic-post-types.php';
 
 
-
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-jupiterx-classic-shortcodes.php';
 
 		/**
@@ -253,11 +252,12 @@ class Jupiterx_Classic {
 
 		// When using ACF
 		$this->loader->add_action( 'plugins_loaded', $plugin_cpt, 'maybe_load_acf' );
-
 		// Load Fields for Employees
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_employees' );
 		// Load Fields for Testimonials
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_testimonial' );
+		// Load Fields for News
+		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_news' );
 
 
 		// Update Query for custom post type
@@ -273,8 +273,9 @@ class Jupiterx_Classic {
 
 		$plugin_shortcode = new Jupiterx_Classic_Shortcodes( $this->get_plugin_name(), $this->get_version() );
 
-		add_shortcode( 'mk_employees', array( $plugin_shortcode , 'mk_employees'));
+		add_shortcode( 'mk_employees', array( $plugin_shortcode, 'mk_employees' ) );
 
+		add_shortcode( 'mk_news', array( $plugin_shortcode, 'mk_news' ) );
 
 	}
 

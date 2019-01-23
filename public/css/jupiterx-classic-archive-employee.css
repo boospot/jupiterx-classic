@@ -20,14 +20,17 @@
     /*box-shadow: 3px 3px 8px hsl(0, 0%, 70%);*/
 /*}*/
 
-.cpt-card-content {
-    padding: 0.5em 1.4em;
+.cpt-card img {
+    max-width: 100%;
+    height: auto;
 }
+
 
 .cpt-card-content h2 {
     margin-top: 0;
     margin-bottom: .5em;
     font-weight: normal;
+    font-size: 1.5em;
 }
 
 .cpt-card-content p {
@@ -140,4 +143,9 @@ ul.mk-employeee-networks {
     border-radius: 50%;
     transition: background-color 0.2s ease, border-color 0.2s ease;
     margin: 0 0.2em;
+}
+
+
+.employee-card .cpt-card-content {
+    padding: 0.5em 1.4em;
 }

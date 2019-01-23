@@ -109,6 +109,7 @@ class Jupiterx_Classic_Post_Types {
 					'hierarchical' => true,
 				),
 				'capabilities'      => array(),
+				'show_in_rest'      => true
 			) );
 		}
 
@@ -117,40 +118,41 @@ class Jupiterx_Classic_Post_Types {
 
 			register_post_type( 'faq', $this->get_faq_args() );
 
-			register_taxonomy( 'employee_category', array( 'employees' ), array(
-				'description'       => '',
+			register_taxonomy( 'faq_category', array( 'faq' ), array(
+				'description'       => 'Frequesntly Asked Questions',
 				'labels'            => array(
-					'name'                       => _x( 'Employee Categories', 'taxonomy general name', 'jupiterx-classic' ),
-					'singular_name'              => _x( 'Employee Category', 'taxonomy singular name', 'jupiterx-classic' ),
-					'search_items'               => __( 'Search Employee Categories', 'jupiterx-classic' ),
-					'popular_items'              => __( 'Popular Employee Categories', 'jupiterx-classic' ),
-					'all_items'                  => __( 'All Employee Categories', 'jupiterx-classic' ),
-					'parent_item'                => __( 'Parent Employee Category', 'jupiterx-classic' ),
-					'parent_item_colon'          => __( 'Parent Employee Category:', 'jupiterx-classic' ),
-					'edit_item'                  => __( 'Edit Employee Category', 'jupiterx-classic' ),
-					'view_item'                  => __( 'View Employee Category', 'jupiterx-classic' ),
-					'update_item'                => __( 'Update Employee Category', 'jupiterx-classic' ),
-					'add_new_item'               => __( 'Add New Employee Category', 'jupiterx-classic' ),
-					'new_item_name'              => __( 'New Employee Category Name', 'jupiterx-classic' ),
-					'separate_items_with_commas' => __( 'Separate employee Categories with commas', 'jupiterx-classic' ),
-					'add_or_remove_items'        => __( 'Add or remove employee Categories', 'jupiterx-classic' ),
-					'choose_from_most_used'      => __( 'Choose from the most used employee Categories', 'jupiterx-classic' ),
-					'not_found'                  => __( 'No employee Categories found.', 'jupiterx-classic' ),
+					'name'                       => _x( 'FAQ Categories', 'taxonomy general name', 'jupiterx-classic' ),
+					'singular_name'              => _x( 'FAQ Category', 'taxonomy singular name', 'jupiterx-classic' ),
+					'search_items'               => __( 'Search FAQ Categories', 'jupiterx-classic' ),
+					'popular_items'              => __( 'Popular FAQ Categories', 'jupiterx-classic' ),
+					'all_items'                  => __( 'All FAQ Categories', 'jupiterx-classic' ),
+					'parent_item'                => __( 'Parent FAQ Category', 'jupiterx-classic' ),
+					'parent_item_colon'          => __( 'Parent FAQ Category:', 'jupiterx-classic' ),
+					'edit_item'                  => __( 'Edit FAQ Category', 'jupiterx-classic' ),
+					'view_item'                  => __( 'View FAQ Category', 'jupiterx-classic' ),
+					'update_item'                => __( 'Update FAQ Category', 'jupiterx-classic' ),
+					'add_new_item'               => __( 'Add New FAQ Category', 'jupiterx-classic' ),
+					'new_item_name'              => __( 'New FAQ Category Name', 'jupiterx-classic' ),
+					'separate_items_with_commas' => __( 'Separate fAQ Categories with commas', 'jupiterx-classic' ),
+					'add_or_remove_items'        => __( 'Add or remove fAQ Categories', 'jupiterx-classic' ),
+					'choose_from_most_used'      => __( 'Choose from the most used fAQ Categories', 'jupiterx-classic' ),
+					'not_found'                  => __( 'No fAQ Categories found.', 'jupiterx-classic' ),
 				),
 				'public'            => true,
 				'show_ui'           => true,
 				'show_in_nav_menus' => true,
 				'show_tagcloud'     => true,
 				'meta_box_cb'       => null,
-				'show_admin_column' => true,
+				'show_admin_column' => false,
 				'hierarchical'      => true,
-				'query_var'         => 'employee_category',
+				'query_var'         => 'faq_category',
 				'rewrite'           => array(
-					'slug'         => 'employee_category',
+					'slug'         => 'faq_category',
 					'with_front'   => true,
 					'hierarchical' => true,
 				),
 				'capabilities'      => array(),
+				'show_in_rest'      => true
 			) );
 		}
 
@@ -185,7 +187,7 @@ class Jupiterx_Classic_Post_Types {
 				'show_tagcloud'     => false,
 				'meta_box_cb'       => null,
 				'show_admin_column' => true,
-				'hierarchical'      => false,
+				'hierarchical'      => true,
 				'query_var'         => 'news_category',
 				'rewrite'           => array(
 					'slug'         => 'news_category',
@@ -193,6 +195,7 @@ class Jupiterx_Classic_Post_Types {
 					'hierarchical' => true,
 				),
 				'capabilities'      => array(),
+				'show_in_rest'      => true
 			) );
 		}
 
@@ -257,7 +260,7 @@ class Jupiterx_Classic_Post_Types {
 		} else {
 			$employees_slug_option = ( isset( $employees_slug_option['employees_slug'] ) ) ? sanitize_key( $employees_slug_option['employees_slug'] ) : 'employees';
 
-			$employee_slug = !empty($employees_slug_option) ? $employees_slug_option : 'employees';
+			$employee_slug = ! empty( $employees_slug_option ) ? $employees_slug_option : 'employees';
 
 
 		}
@@ -399,9 +402,9 @@ class Jupiterx_Classic_Post_Types {
 			'capability_type'      => 'post',
 			'capabilities'         => array(),
 			'map_meta_cap'         => null,
-			'supports'             => array( 'title', 'editor' ),
+			'supports'             => array( 'title', 'editor', 'thumbnail' ),
 			'register_meta_box_cb' => null,
-			'taxonomies'           => array(),
+			'taxonomies'           => array( 'news_category' ),
 			'has_archive'          => true,
 			'rewrite'              => array(
 				'slug'       => 'news',
@@ -512,11 +515,19 @@ class Jupiterx_Classic_Post_Types {
 
 		global $post;
 
-		if ( $post->post_type == 'employees' ) {
+		switch ( $post->post_type ) {
+			case( 'employees' ):
+				$template = Jupiterx_Classic_Global::get_template( $template, 'single-employees' );
+				break;
 
-			$template = Jupiterx_Classic_Global::get_template( $template, 'single-employees' );
+			case( 'news' ):
+				$template = Jupiterx_Classic_Global::get_template( $template, 'single-news' );
+				break;
+
+			default:
 
 		}
+
 
 		return $template;
 
@@ -533,11 +544,20 @@ class Jupiterx_Classic_Post_Types {
 
 		global $post;
 
-		if ( $post->post_type == 'employees' ) {
 
-			$template = Jupiterx_Classic_Global::get_template( $template, 'archive-employees' );
+		switch ( $post->post_type ) {
+			case( 'employees' ):
+				$template = Jupiterx_Classic_Global::get_template( $template, 'archive-employees' );
+				break;
+
+			case( 'news' ):
+				$template = Jupiterx_Classic_Global::get_template( $template, 'archive-news' );
+				break;
+
+			default:
 
 		}
+
 
 		return $template;
 
@@ -894,6 +914,74 @@ class Jupiterx_Classic_Post_Types {
 				'style'                 => 'default',
 				'label_placement'       => 'left',
 				'instruction_placement' => 'field',
+				'hide_on_screen'        => '',
+				'active'                => 1,
+				'description'           => '',
+			) );
+
+		endif;
+
+	}
+
+	/**
+	 * Load Employees ACF Fields
+	 */
+	public function load_acf_fields_news() {
+
+		if ( function_exists( 'acf_add_local_field_group' ) ):
+
+			acf_add_local_field_group( array(
+				'key'                   => 'group_5c484012a05fe',
+				'title'                 => 'News Settings',
+				'fields'                => array(
+					array(
+						'key'               => 'field_5c4840404e94b',
+						'label'             => 'News Date',
+						'name'              => '_news_date',
+						'type'              => 'date_picker',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => array(
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						),
+						'display_format'    => 'd/m/Y',
+						'return_format'     => 'F j, Y',
+						'first_day'         => 1,
+					),
+					array(
+						'key'               => 'field_5c4840d54e94c',
+						'label'             => 'News Detail URL',
+						'name'              => '_news_detail_url',
+						'type'              => 'url',
+						'instructions'      => '',
+						'required'          => 0,
+						'conditional_logic' => 0,
+						'wrapper'           => array(
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						),
+						'default_value'     => '',
+						'placeholder'       => '',
+					),
+				),
+				'location'              => array(
+					array(
+						array(
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'news',
+						),
+					),
+				),
+				'menu_order'            => 0,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
 				'hide_on_screen'        => '',
 				'active'                => 1,
 				'description'           => '',

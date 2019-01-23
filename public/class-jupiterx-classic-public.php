@@ -81,7 +81,7 @@ class Jupiterx_Classic_Public {
 		wp_register_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/5.4.0/css/font-awesome.min.css' );
 
 
-		if ( is_singular( array( 'employees' ) ) ) {
+		if ( is_singular( array( 'employees', 'news' ) ) ) {
 
 			wp_enqueue_style( $this->plugin_name . '-single-employee', plugin_dir_url( __FILE__ ) . 'css/jupiterx-classic-single-employee.css', array(), $this->version, 'all' );
 
@@ -89,7 +89,7 @@ class Jupiterx_Classic_Public {
 		}
 
 
-		if ( is_post_type_archive( 'employees' ) ) {
+		if ( is_post_type_archive( 'employees' ) ||  is_post_type_archive( 'news' )) {
 			wp_enqueue_style( $this->plugin_name . '-archive-employee' );
 			wp_enqueue_style( 'font-awesome' );
 		}
