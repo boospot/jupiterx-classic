@@ -82,8 +82,10 @@ class Jupiterx_Classic_Public {
 
 
 		if ( is_singular( array( 'employees' ) ) ) {
-			wp_enqueue_style( $this->plugin_name . '-employee', plugin_dir_url( __FILE__ ) . 'css/jupiterx-classic-employee.css', array(), $this->version, 'all' );
-			wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/5.4.0/css/font-awesome.min.css' );
+
+			wp_enqueue_style( $this->plugin_name . '-single-employee', plugin_dir_url( __FILE__ ) . 'css/jupiterx-classic-single-employee.css', array(), $this->version, 'all' );
+
+			wp_enqueue_style( 'font-awesome' );
 		}
 
 

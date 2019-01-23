@@ -33,54 +33,20 @@ if ( have_posts() ) {
 
 		<?php
 
-		if ( ! function_exists( 'mk_employees_meta_information' ) ) {
-			function mk_employees_meta_information() {
-				$facebook   = esc_url( get_post_meta( get_the_ID(), '_facebook', true ) );
-				$linkedin   = esc_url( get_post_meta( get_the_ID(), '_linkedin', true ) );
-				$twitter    = esc_url( get_post_meta( get_the_ID(), '_twitter', true ) );
-				$email      = sanitize_email( get_post_meta( get_the_ID(), '_email', true ) );
-				$googleplus = esc_url( get_post_meta( get_the_ID(), '_googleplus', true ) );
-				$instagram  = esc_url( get_post_meta( get_the_ID(), '_instagram', true ) );
-
-
-				$output = '<span class="employees_meta"><h1 class="team-member team-member-name s_meta a_align-center a_display-block a_margin-top-40 a_font-weight-bold a_color-333 a_font-22" itemprop="name">' . get_the_title() . '</h1>';
-				$output .= '<span class="team-member team-member-position s_meta a_align-center a_display-block a_margin-top-15 a_font-weight-normal a_color-777 a_font-14" itemprop="jobTitle">' . get_post_meta( get_the_ID(), '_position', true ) . '</span>';
-				$output .= '<ul class="mk-employeee-networks s_meta">';
-				if ( ! empty( $email ) ) {
-					$output .= '<li><a target="_blank" href="mailto:' . antispambot( $email ) . '" title="' . esc_attr__( 'Get In Touch With', 'jupiterx-classic' ) . ' ' . the_title_attribute( array( 'echo' => false ) ) . '">'  . '<i class="fa fa-envelope"></i>' . '</a></li>';
-				}
-				if ( ! empty( $facebook ) ) {
-					$output .= '<li><a target="_blank" href="' . $facebook . '" title="' . the_title_attribute( array( 'echo' => false ) ) . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Facebook">'  . '<i class="fa fa-facebook"></i>' . '</a></li>';
-				}
-				if ( ! empty( $twitter ) ) {
-					$output .= '<li><a target="_blank" href="' . $twitter . '" title="' . the_title_attribute( array( 'echo' => false ) ) . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Twitter">'  . '<i class="fa fa-twitter"></i>' . '</a></li>';
-				}
-				if ( ! empty( $googleplus ) ) {
-					$output .= '<li><a target="_blank" href="' . $googleplus . '" title="' . the_title_attribute( array( 'echo' => false ) ) . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Google Plus">'  . '<i class="fa fa-google-plus"></i>' . '</a></li>';
-				}
-				if ( ! empty( $linkedin ) ) {
-					$output .= '<li><a target="_blank" href="' . $linkedin . '" title="' . the_title_attribute( array( 'echo' => false ) ) . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Linked In">' . '<i class="fa fa-linkedin"></i>' . '</a></li>';
-				}
-				if ( ! empty( $instagram ) ) {
-					$output .= '<li><a target="_blank" href="' . $instagram . '" title="' . the_title_attribute( array( 'echo' => false ) ) . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Instagram">'  . '<i class="fa fa-instagram"></i>' . '</a></li>';
-				}
-				$output .= '</ul></span>';
-
-				echo $output;
-			}
-		}
+		$meta_information_html = Jupiterx_Classic_Global::get_employee_name_position( $post->ID ) . Jupiterx_Classic_Global::mk_employees_meta_information( $post->ID );
 
 
 		?>
-        <div itemscope itemtype="http://schema.org/Person">
+        <div class="mk-employee-container"  itemscope itemtype="http://schema.org/Person">
 			<?php if ( $style == 'style1' ): ?>
-                <div class="mk-employee-container employee-style-1">
+                <div class="employee-style-1">
                     <div class="single-employee-sidebar a_display-inline-block a_float-left">
+                        <div class="employee-img">
 						<?php
-//                        the_post_thumbnail( $post->ID  );
-						echo get_the_post_thumbnail( null, 'employees-large') ;
-                        ?>
-						<?php mk_employees_meta_information(); ?>
+						echo get_the_post_thumbnail( null, 'employees-large' );
+						?>
+                        </div>
+						<?php echo $meta_information_html; ?>
                     </div>
                     <div class="single-employee-content">
 						<?php the_content(); ?>
@@ -89,10 +55,10 @@ if ( have_posts() ) {
 			<?php elseif ( $style == 'style2' ): ?>
                 <div class="mk-employee-container employee-style-2">
                     <div class="single-employee-sidebar a_display-inline-block a_float-left">
-						<?php the_post_thumbnail( $post->ID ); ?>
+                        <div class="employee-img"><?php echo get_the_post_thumbnail( null, 'employees-large' ); ?></div>
                     </div>
                     <div class="single-employee-content">
-						<?php mk_employees_meta_information(); ?>
+						<?php echo $meta_information_html; ?>
 						<?php the_content(); ?>
                     </div>
                 </div>
@@ -102,11 +68,12 @@ if ( have_posts() ) {
                          style="
                                  background-color:<?php echo $header_hero_bg_color ?>;
 
-                                 background-image:url(<?php if(isset( $header_hero_bg_image_url)) echo $header_hero_bg_image_url ?>);
+                                 background-image:url(<?php if ( isset( $header_hero_bg_image_url ) )
+						     echo $header_hero_bg_image_url ?>);
                                  background-size: cover; background-position: center center;
                                  ">
-						<?php the_post_thumbnail( $post->ID ); ?>
-						<?php mk_employees_meta_information(); ?>
+                        <div class="employee-img"><?php echo get_the_post_thumbnail( null, 'employees-large' ); ?></div>
+						<?php echo $meta_information_html; ?>
                     </div>
                     <div class="mk-employee-container">
                         <div class="single-employee-content">

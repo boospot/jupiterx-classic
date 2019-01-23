@@ -14,11 +14,9 @@ global $wp;
 get_header( 'employees' ); ?>
 
 <section id="primary" class="content-area">
-    <main id="main" class="site-main" role="main">
-
 		<?php if ( have_posts() ) : ?>
 
-            <section class="cards column-three">
+            <div class="cpt-cards column-three">
 				<?php
 				// Start the Loop.
 				while ( have_posts() ) :
@@ -29,7 +27,7 @@ get_header( 'employees' ); ?>
 					// End the loop.
 				endwhile;
 				?>
-            </section><!-- .cards -->
+            </div><!-- .cards -->
 			<?php
 
 			// Previous/next page navigation.
@@ -47,7 +45,6 @@ get_header( 'employees' ); ?>
 		endif;
 		?>
 
-    </main><!-- .site-main -->
 </section><!-- .content-area -->
 
 

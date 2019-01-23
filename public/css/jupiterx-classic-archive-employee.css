@@ -1,31 +1,36 @@
 /* Card Based Layout - Base styles */
-.card {
-    background: white;
+.cpt-card {
+    /*background: white;*/
     margin-bottom: 2em;
     padding: 1em;
 }
 
-.card a {
+.cpt-card a {
     /*color: black;*/
     text-decoration: none;
     /*flex: 1;*/
 }
 
-/*.card a:hover {*/
+.cpt-card a:hover {
+    text-decoration: none;
+}
+
+
+/*.cpt-card a:hover {*/
     /*box-shadow: 3px 3px 8px hsl(0, 0%, 70%);*/
 /*}*/
 
-.card-content {
+.cpt-card-content {
     padding: 0.5em 1.4em;
 }
 
-.card-content h2 {
+.cpt-card-content h2 {
     margin-top: 0;
     margin-bottom: .5em;
     font-weight: normal;
 }
 
-.card-content p {
+.cpt-card-content p {
     font-size: 95%;
 }
 
@@ -33,7 +38,7 @@
 
 @media screen and (min-width: 40em) {
 
-    .cards {
+    .cpt-cards {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
@@ -46,7 +51,7 @@
         margin-top: -1em;
     }
 
-    .card {
+    .cpt-card {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
@@ -60,19 +65,19 @@
 
 @media screen and (min-width: 60em) {
 
-    .cards {
+    .cpt-cards {
         margin-top: inherit;
     }
 
 
-    .column-three .card {
+    .column-three .cpt-card {
         -webkit-flex: 0 1 calc(33% - 1em);
         -ms-flex: 0 1 calc(33% - 1em);
         flex: 0 1 calc(33% - 1em);
         margin-bottom: 2em;
     }
 
-    .column-two .card {
+    .column-two .cpt-card {
         -webkit-flex: 0 1 calc(50% - 1em);
         -ms-flex: 0 1 calc(50% - 1em);
         flex: 0 1 calc(50% - 1em);
@@ -80,14 +85,14 @@
     }
 
 
-    .column-four .card {
+    .column-four .cpt-card {
         -webkit-flex: 0 1 calc(25% - 1em);
         -ms-flex: 0 1 calc(25% - 1em);
         flex: 0 1 calc(25% - 1em);
         margin-bottom: 2em;
     }
 
-    .column-five .card {
+    .column-five .cpt-card {
         -webkit-flex: 0 1 calc(20% - 1em);
         -ms-flex: 0 1 calc(20% - 1em);
         flex: 0 1 calc(20% - 1em);
@@ -97,7 +102,7 @@
 
 }
 
-.card.employee-card {
+.cpt-card.employee-card {
     text-align: center;
     border:none;
 }
@@ -109,16 +114,30 @@
     height: auto;
 }
 
-.employee-card a:hover {
-    text-decoration: none;
-}
 
 
-ul.mk-employeee-networks.s_meta {
+ul.mk-employeee-networks {
+    margin: 1em 0 0.5em !important;
+    padding: 0 !important;
     list-style: none;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin: 0 15%;
-    padding: 0;
+    text-align: center;
+    justify-content: center;
+}
+
+.mk-employeee-networks a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin: 0 0.2em;
 }

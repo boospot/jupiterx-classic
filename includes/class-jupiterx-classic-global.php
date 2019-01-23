@@ -13,7 +13,6 @@
 class Jupiterx_Classic_Global {
 
 
-
 	protected static $custom_post_types = array( 'employees', 'faq', 'news', 'testimonial' );
 
 	/**
@@ -88,7 +87,6 @@ class Jupiterx_Classic_Global {
 	} // get_template()
 
 
-
 	public static function get_cpts_to_load() {
 
 		$jupiterx_cpts_to_load = get_option( 'jupiterx_classic_cpt' );
@@ -107,5 +105,54 @@ class Jupiterx_Classic_Global {
 
 
 	}
+
+
+	public static function mk_employees_meta_information( $post_id ) {
+		$facebook      = esc_url( get_post_meta( $post_id, '_facebook', true ) );
+		$linkedin      = esc_url( get_post_meta( $post_id, '_linkedin', true ) );
+		$twitter       = esc_url( get_post_meta( $post_id, '_twitter', true ) );
+		$email         = sanitize_email( get_post_meta( $post_id, '_email', true ) );
+		$googleplus    = esc_url( get_post_meta( $post_id, '_googleplus', true ) );
+		$instagram     = esc_url( get_post_meta( $post_id, '_instagram', true ) );
+		$employee_name = the_title_attribute( array( 'echo' => false, 'post' => $post_id ) );
+
+
+		$output = '<ul class="mk-employeee-networks s_meta">';
+		if ( ! empty( $email ) ) {
+			$output .= '<li><a target="_blank" href="mailto:' . antispambot( $email ) . '" title="' . esc_attr__( 'Get In Touch With', 'jupiterx-classic' ) . ' ' . $employee_name . '">' . '<i class="fa fa-envelope"></i>' . '</a></li>';
+		}
+		if ( ! empty( $facebook ) ) {
+			$output .= '<li><a target="_blank" href="' . $facebook . '" title="' . $employee_name . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Facebook">' . '<i class="fa fa-facebook"></i>' . '</a></li>';
+		}
+		if ( ! empty( $twitter ) ) {
+			$output .= '<li><a target="_blank" href="' . $twitter . '" title="' . $employee_name . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Twitter">' . '<i class="fa fa-twitter"></i>' . '</a></li>';
+		}
+		if ( ! empty( $googleplus ) ) {
+			$output .= '<li><a target="_blank" href="' . $googleplus . '" title="' . $employee_name . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Google Plus">' . '<i class="fa fa-google-plus"></i>' . '</a></li>';
+		}
+		if ( ! empty( $linkedin ) ) {
+			$output .= '<li><a target="_blank" href="' . $linkedin . '" title="' . $employee_name . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Linked In">' . '<i class="fa fa-linkedin"></i>' . '</a></li>';
+		}
+		if ( ! empty( $instagram ) ) {
+			$output .= '<li><a target="_blank" href="' . $instagram . '" title="' . $employee_name . ' ' . esc_attr__( 'On', 'jupiterx-classic' ) . ' Instagram">' . '<i class="fa fa-instagram"></i>' . '</a></li>';
+		}
+		$output .= '</ul></span>';
+
+		return $output;
+	}
+
+
+	/**
+	 *
+	 */
+	public static function get_employee_name_position( $post_id ) {
+
+		$output = '<span class="employees_meta"><h1 class="team-member team-member-name s_meta a_align-center a_display-block a_margin-top-40 a_font-weight-bold a_color-333 a_font-22" itemprop="name">' . get_the_title( $post_id ) . '</h1>';
+		$output .= '<span class="team-member team-member-position s_meta a_align-center a_display-block a_margin-top-15 a_font-weight-normal a_color-777 a_font-14" itemprop="jobTitle">' . get_post_meta( $post_id, '_position', true ) . '</span>';
+
+
+		return $output;
+	}
+
 
 }
