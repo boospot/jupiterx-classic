@@ -44,6 +44,7 @@ No, There is partial working done for the front end, So, the following will work
     * Employees
 * **shortcodes for these post types.**
     * For employees `[mk_employees]`
+    * For News `[mk_news]`
 
 **Can i control which Post types to register**
 
@@ -84,6 +85,10 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 ---
 ##Changelog
 
+= 1.2.1 =
+* News Shortcode supports filtering for News Category `[mk_news count=-1 orderby='meta_value' meta_key='_news_date' order='DESC' show_filter=true]`
+You need to add a shortcode param `show_filter` and set it to true
+
 = 1.2.0 =
 * Added support for News Shortcode `[mk_news]`
 
@@ -98,6 +103,12 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 
 
 **Upgrade Notice**
+
+= 1.2.1 =
+* News Shortcode supports filtering for News Category
+
+= 1.2.0 =
+* Added support for News Shortcode `[mk_news]`
 
 = 1.1.1 =
 * Fix: Minor Shortcode issues resolved
