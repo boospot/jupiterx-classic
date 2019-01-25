@@ -85,6 +85,10 @@ For more details, read: [https://codex.wordpress.org/Managing_Plugins](https://c
 ---
 ##Changelog
 
+= 1.2.2 =
+* fix: social icons not showing if single page is off
+
+
 = 1.2.1 =
 * News Shortcode supports filtering for News Category `[mk_news count=-1 orderby='meta_value' meta_key='_news_date' order='DESC' show_filter=true]`
 You need to add a shortcode param `show_filter` and set it to true
