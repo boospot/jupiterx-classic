@@ -16,9 +16,13 @@ $news_url = esc_url_raw( get_post_meta( get_the_ID(), '_news_detail_url', true )
 
 $news_cats          = get_the_terms( get_the_ID(), 'news_category' );
 $news_terms_classes = ' ';
-foreach ( $news_cats as $term ) {
-	$news_terms_classes = $news_terms_classes . ' ' . $term->slug;
+
+if ( is_array( $news_cats ) && ! empty( $news_cats ) ) {
+	foreach ( $news_cats as $term ) {
+		$news_terms_classes = $news_terms_classes . ' ' . $term->slug;
+	}
 }
+
 unset( $news_cats );
 //var_dump( $news_cats); die();
 
