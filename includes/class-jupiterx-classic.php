@@ -258,7 +258,8 @@ class Jupiterx_Classic {
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_testimonial' );
 		// Load Fields for News
 		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_news' );
-
+		// Load Fields for Partners
+		$this->loader->add_action( 'wp_loaded', $plugin_cpt, 'load_acf_fields_partners' );
 
 		// Update Query for custom post type
 		$this->loader->add_action( 'pre_get_posts', $plugin_cpt, 'alter_query_to_add_recipe_posttype' );
@@ -277,7 +278,7 @@ class Jupiterx_Classic {
 
 		add_shortcode( 'mk_news', array( $plugin_shortcode, 'mk_news' ) );
 
-		add_shortcode( 'mk_news', array( $plugin_shortcode, 'mk_portfolio' ) );
+		add_shortcode( 'mk_partners', array( $plugin_shortcode, 'mk_partners' ) );
 
 	}
 

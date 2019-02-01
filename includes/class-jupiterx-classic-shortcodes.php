@@ -515,10 +515,10 @@ class Jupiterx_Classic_Shortcodes {
 	 *
 	 * @return mixed
 	 */
-	public function mk_portfolio( $atts ) {
+	public function mk_partners( $atts ) {
 
 		$atts = shortcode_atts(
-			apply_filters( 'jxc_shortcode_atts_portfolio', array(
+			apply_filters( 'jxc_shortcode_atts_partners', array(
 				'count'             => 10,
 				'column'            => 3,
 				'style'             => 'simple',
@@ -529,7 +529,7 @@ class Jupiterx_Classic_Shortcodes {
 				'rounded_image'     => 'true',
 				'box_border_color'  => '',
 				'box_bg_color'      => '',
-				'news'              => '',
+				'partners'          => '',
 				'categories'        => '',
 				'animation'         => '',
 				'description'       => 'true',
@@ -543,14 +543,13 @@ class Jupiterx_Classic_Shortcodes {
 				'about_color'       => '',
 				'social_color'      => '',
 				'grayscale_image'   => 'true',
-				'meta_key'          => 'meta_key',
 				'show_filter'       => false
 			) ),
 			$atts,
-			'mk_news'
+			'mk_partners'
 		);
 
-		$post_type = 'news';
+		$post_type = 'partners';
 
 
 		extract( $atts );
@@ -600,26 +599,28 @@ class Jupiterx_Classic_Shortcodes {
 
 //		wp_enqueue_style( 'font-awesome' );
 
-		$query_args = array(
-			'post_type'      => 'news',
-			'post_status'    => 'publish',
-			'posts_per_page' => absint( $atts['count'] ),
-		);
+//		$query_args = array(
+//			'post_type'      => 'partners',
+//			'post_status'    => 'publish',
+//			'posts_per_page' => absint( $atts['count'] ),
+//		);
 
 
 		$query = $this->mk_wp_query( array(
 			'post_type'  => $post_type,
 			'count'      => $count,
 			'offset'     => $offset,
-			'posts'      => $news,
+			'posts'      => $partners,
 			'categories' => $categories,
 			'orderby'    => $orderby,
 			'order'      => $order,
-			'meta_key'   => $meta_key
+//			'meta_key'   => $meta_key
 		) );
 
 
 		$loop = $query['wp_query'];
+
+//		var_export( $query ); die();
 
 //		$archive_layout = sanitize_key( $atts['recipe_archive_layout'] );
 //
@@ -632,7 +633,7 @@ class Jupiterx_Classic_Shortcodes {
 
 		ob_start();
 
-		include Jupiterx_Classic_Global::get_template( 'mk_news', 'mk_news', 'shortcodes' );
+		include Jupiterx_Classic_Global::get_template( 'mk_partners', 'mk_partners', 'shortcodes' );
 		wp_reset_postdata();
 
 		return ob_get_clean();

@@ -190,7 +190,7 @@ class Jupiterx_Classic_Admin {
 		$cpts_to_load = Jupiterx_Classic_Global::get_cpts_to_load();
 
 		if ( array_key_exists( 'employees', $cpts_to_load ) ) {
-			$sections[] = 	array(
+			$sections[] = array(
 				'id'    => 'jupiterx_classic_employees',
 				'title' => __( 'Employees', 'jupiterx-classic' ),
 			);
@@ -213,26 +213,30 @@ class Jupiterx_Classic_Admin {
 					'label'   => __( 'Select as per your Requirement', 'jupiterx-classic' ),
 					'desc'    => __( 'Only Selected Posts will be Loaded', 'jupiterx-classic' ),
 					'type'    => 'multicheck',
-					'default' => array( 'employees'   => 'employees',
-					                    'faq'         => 'faq',
-					                    'news'        => 'news',
-					                    'testimonial' => 'testimonial'
+					'default' => array(
+						'employees'   => 'employees',
+						'faq'         => 'faq',
+						'news'        => 'news',
+						'testimonial' => 'testimonial',
+						'partners'    => 'partners',
 					),
 					'options' => array(
 						'employees'   => __( 'Employees', 'jupiterx-classic' ),
 						'faq'         => __( 'FAQ', 'jupiterx-classic' ),
 						'news'        => __( 'News', 'jupiterx-classic' ),
 						'testimonial' => __( 'Testimonial', 'jupiterx-classic' ),
+						'partners'    => __( 'Partners', 'jupiterx-classic' ),
+
 					)
 				),
 			),
 
 			'jupiterx_classic_settings' => array(
 				array(
-					'name'    => 'load_elementor',
-					'label'   => __( 'Include Elementor Support', 'jupiterx-classic' ),
-					'desc'    => __( 'This is in test phase, so, please activate at your own risk.', 'jupiterx-classic' ),
-					'type'    => 'checkbox',
+					'name'  => 'load_elementor',
+					'label' => __( 'Include Elementor Support', 'jupiterx-classic' ),
+					'desc'  => __( 'This is in test phase, so, please activate at your own risk.', 'jupiterx-classic' ),
+					'type'  => 'checkbox',
 //					'options' => array(
 //						'yes' => 'Yes',
 //						'no'    =>  'No'
@@ -242,17 +246,16 @@ class Jupiterx_Classic_Admin {
 			),
 
 
-
 			'jupiterx_classic_employees' => array(
-			array(
-				'name'    => 'employees_slug',
-				'label'   => __( 'Employees Post type Slug', 'jupiterx-classic' ),
-				'desc'    => __( 'Update this value and re-save permalinks', 'jupiterx-classic' ),
-				'type'    => 'text',
-				'placeholder' => 'employees',
-				'sanitize_callback' => 'sanitize_text_field'
+				array(
+					'name'              => 'employees_slug',
+					'label'             => __( 'Employees Post type Slug', 'jupiterx-classic' ),
+					'desc'              => __( 'Update this value and re-save permalinks', 'jupiterx-classic' ),
+					'type'              => 'text',
+					'placeholder'       => 'employees',
+					'sanitize_callback' => 'sanitize_text_field'
+				),
 			),
-		)
 
 		);
 

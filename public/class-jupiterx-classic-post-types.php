@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Jupiterx_Classic_Post_Types {
 
-	protected $custom_post_types = array( 'employees', 'faq', 'news', 'testimonial' );
+	protected $custom_post_types = array( 'employees', 'faq', 'news', 'testimonial', 'partners' );
 
 	protected $cpts_loaded = array();
 	/**
@@ -239,6 +239,52 @@ class Jupiterx_Classic_Post_Types {
 				),
 				'capabilities'      => array(),
 			) );
+		}
+
+		if ( array_key_exists( 'partners', $cpts_to_load ) ) {
+
+			$this->cpts_loaded['partners'] = 'partners';
+
+			register_post_type( 'partners', $this->get_partners_args() );
+
+			register_taxonomy( 'partners_category', array( 'partners' ), array(
+
+				'description'       => 'Partners Category',
+				'labels'            => array(
+					'name'                       => _x( 'Partners Categories', 'taxonomy general name', 'jupiterx-classic' ),
+					'singular_name'              => _x( 'Partners Category', 'taxonomy singular name', 'jupiterx-classic' ),
+					'search_items'               => __( 'Search Partners Categories', 'jupiterx-classic' ),
+					'popular_items'              => __( 'Popular Partners Categories', 'jupiterx-classic' ),
+					'all_items'                  => __( 'All Partners Categories', 'jupiterx-classic' ),
+					'parent_item'                => __( 'Parent Partners Category', 'jupiterx-classic' ),
+					'parent_item_colon'          => __( 'Parent Partners Category:', 'jupiterx-classic' ),
+					'edit_item'                  => __( 'Edit Partners Category', 'jupiterx-classic' ),
+					'view_item'                  => __( 'View Partners Category', 'jupiterx-classic' ),
+					'update_item'                => __( 'Update Partners Category', 'jupiterx-classic' ),
+					'add_new_item'               => __( 'Add New Partners Category', 'jupiterx-classic' ),
+					'new_item_name'              => __( 'New Partners Category Name', 'jupiterx-classic' ),
+					'separate_items_with_commas' => __( 'Separate partners Categories with commas', 'jupiterx-classic' ),
+					'add_or_remove_items'        => __( 'Add or remove partners Categories', 'jupiterx-classic' ),
+					'choose_from_most_used'      => __( 'Choose from the most used partners Categories', 'jupiterx-classic' ),
+					'not_found'                  => __( 'No partners Categories found.', 'jupiterx-classic' ),
+				),
+				'public'            => true,
+				'show_ui'           => true,
+				'show_in_nav_menus' => true,
+				'show_tagcloud'     => true,
+				'meta_box_cb'       => null,
+				'show_admin_column' => true,
+				'hierarchical'      => true,
+				'query_var'         => 'partners_category',
+				'rewrite'           => array(
+					'slug'         => 'partners_category',
+					'with_front'   => true,
+					'hierarchical' => true,
+				),
+				'capabilities'      => array(),
+				'show_in_rest'      => true
+			) );
+
 		}
 
 		add_image_size( 'employees-large', 500, 500, true );
@@ -468,6 +514,60 @@ class Jupiterx_Classic_Post_Types {
 			'can_export'           => true,
 			'show_in_rest'         => true,
 		) );
+	}
+
+	/**
+	 * Get Partners Logo CPT Register Args
+	 */
+	protected function get_partners_args() {
+
+
+		return apply_filters( 'jxc_cpt_args_partners', array(
+			'labels'               => array(
+				'name'               => _x( 'Partners', 'post type general name', 'jupiterx-classic' ),
+				'singular_name'      => _x( 'Partner', 'post type singular name', 'jupiterx-classic' ),
+				'menu_name'          => _x( 'Partners', 'admin menu', 'jupiterx-classic' ),
+				'name_admin_bar'     => _x( 'Partner', 'add new partner_logos on admin bar', 'jupiterx-classic' ),
+				'add_new'            => _x( 'Add New', 'post_type', 'jupiterx-classic' ),
+				'add_new_item'       => __( 'Add New Partner', 'jupiterx-classic' ),
+				'edit_item'          => __( 'Edit Partner', 'jupiterx-classic' ),
+				'new_item'           => __( 'New Partner', 'jupiterx-classic' ),
+				'view_item'          => __( 'View Partner', 'jupiterx-classic' ),
+				'search_items'       => __( 'Search Partners', 'jupiterx-classic' ),
+				'not_found'          => __( 'No partners found.', 'jupiterx-classic' ),
+				'not_found_in_trash' => __( 'No partners found in Trash.', 'jupiterx-classic' ),
+				'parent_item_colon'  => __( 'Parent Partner:', 'jupiterx-classic' ),
+				'all_items'          => __( 'All Partners', 'jupiterx-classic' ),
+			),
+			'public'               => true,
+			'hierarchical'         => false,
+			'exclude_from_search'  => true,
+			'publicly_queryable'   => true,
+			'show_ui'              => true,
+			'show_in_menu'         => true,
+			'show_in_nav_menus'    => true,
+			'show_in_admin_bar'    => true,
+			'menu_position'        => 60,
+			'menu_icon'            => 'dashicons-awards',
+			'capability_type'      => 'post',
+			'capabilities'         => array(),
+			'map_meta_cap'         => null,
+			'supports'             => array( 'title', 'editor', 'thumbnail' ),
+			'register_meta_box_cb' => null,
+			'taxonomies'           => array( 'partners_category' ),
+			'has_archive'          => true,
+			'rewrite'              => array(
+				'slug'       => 'partners',
+				'with_front' => true,
+				'feeds'      => true,
+				'pages'      => true,
+			),
+			'query_var'            => true,
+			'can_export'           => true,
+			'show_in_rest'         => true,
+		) );
+
+
 	}
 
 	/**
@@ -1094,6 +1194,57 @@ class Jupiterx_Classic_Post_Types {
 				'active'                => 1,
 				'description'           => '',
 			) );
+
+		endif;
+
+	}
+
+	/**
+	 * Load Partners ACF Fields
+	 */
+	public function load_acf_fields_partners() {
+
+		if( function_exists('acf_add_local_field_group') ):
+
+			acf_add_local_field_group(array(
+				'key' => 'group_5c5448e28cab4',
+				'title' => 'Partners Settings',
+				'fields' => array(
+					array(
+						'key' => 'field_5c5448e28f9d2',
+						'label' => 'Partners Website',
+						'name' => '_partners_url',
+						'type' => 'url',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => 0,
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'default_value' => '',
+						'placeholder' => '',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param' => 'post_type',
+							'operator' => '==',
+							'value' => 'partners',
+						),
+					),
+				),
+				'menu_order' => 0,
+				'position' => 'side',
+				'style' => 'default',
+				'label_placement' => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen' => '',
+				'active' => 1,
+				'description' => '',
+			));
 
 		endif;
 
