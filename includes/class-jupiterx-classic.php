@@ -277,6 +277,8 @@ class Jupiterx_Classic {
 
 		add_shortcode( 'mk_news', array( $plugin_shortcode, 'mk_news' ) );
 
+		add_shortcode( 'mk_news', array( $plugin_shortcode, 'mk_portfolio' ) );
+
 	}
 
 	/**

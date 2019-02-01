@@ -509,6 +509,137 @@ class Jupiterx_Classic_Shortcodes {
 	}
 
 	/**
+	 * @param $atts
+	 *
+	 * @hooked recipes_browse shortcode registered
+	 *
+	 * @return mixed
+	 */
+	public function mk_portfolio( $atts ) {
+
+		$atts = shortcode_atts(
+			apply_filters( 'jxc_shortcode_atts_portfolio', array(
+				'count'             => 10,
+				'column'            => 3,
+				'style'             => 'simple',
+				'custom_image_size' => 'false',
+				'image_size'        => 'crop',
+				'image_width'       => 500,
+				'image_height'      => 500,
+				'rounded_image'     => 'true',
+				'box_border_color'  => '',
+				'box_bg_color'      => '',
+				'news'              => '',
+				'categories'        => '',
+				'animation'         => '',
+				'description'       => 'true',
+				'visibility'        => '',
+				'el_class'          => '',
+				'offset'            => 0,
+				'orderby'           => 'date',
+				'order'             => 'DESC',
+				'name_color'        => '',
+				'position_color'    => '',
+				'about_color'       => '',
+				'social_color'      => '',
+				'grayscale_image'   => 'true',
+				'meta_key'          => 'meta_key',
+				'show_filter'       => false
+			) ),
+			$atts,
+			'mk_news'
+		);
+
+		$post_type = 'news';
+
+
+		extract( $atts );
+
+		$show_filter = ( $show_filter == 'true' ) ? true : false;
+
+
+		switch ( $atts['column'] ) {
+			case ( 1 ):
+				$column_count = 'column-one';
+				break;
+			case ( 2 ):
+				$column_count = 'column-two';
+				break;
+			case ( 3 ):
+				$column_count = 'column-three';
+				break;
+			case ( 4 ):
+				$column_count = 'column-four';
+				break;
+			case ( 5 ):
+				$column_count = 'column-five';
+				break;
+			case ( 6 ):
+				$column_count = 'column-six';
+				break;
+			default:
+				$column_count = 'column-three';
+		}
+
+
+//		$this->setup_shortcode_data( $atts, 'recipes_browse', 'archive' );
+
+//
+//		if ( sanitize_key( $atts['show_in_masonry'] ) === 'yes' ) {
+//			wp_enqueue_script( 'masonry' );
+//		}
+
+		wp_enqueue_style( $this->plugin_name . '-archive-employee' );
+
+		if ( $show_filter ) {
+
+			wp_enqueue_script( $this->plugin_name );
+			wp_enqueue_script( $this->plugin_name . '-isotope' );
+
+		}
+
+//		wp_enqueue_style( 'font-awesome' );
+
+		$query_args = array(
+			'post_type'      => 'news',
+			'post_status'    => 'publish',
+			'posts_per_page' => absint( $atts['count'] ),
+		);
+
+
+		$query = $this->mk_wp_query( array(
+			'post_type'  => $post_type,
+			'count'      => $count,
+			'offset'     => $offset,
+			'posts'      => $news,
+			'categories' => $categories,
+			'orderby'    => $orderby,
+			'order'      => $order,
+			'meta_key'   => $meta_key
+		) );
+
+
+		$loop = $query['wp_query'];
+
+//		$archive_layout = sanitize_key( $atts['recipe_archive_layout'] );
+//
+//		// $archive_template is required in included file
+//		$archive_template = ( is_file( boorecipe_get_template( "archive-recipe-content-{$archive_layout}", 'archive' ) ) )
+//
+//			? boorecipe_get_template( "archive-recipe-content-{$archive_layout}", 'archive' )
+//			: boorecipe_get_template( "archive-recipe-content-grid", 'archive' );
+
+
+		ob_start();
+
+		include Jupiterx_Classic_Global::get_template( 'mk_news', 'mk_news', 'shortcodes' );
+		wp_reset_postdata();
+
+		return ob_get_clean();
+
+	}
+
+	/**
 	 * @param $classes_array
 	 *
 	 * @return mixed
