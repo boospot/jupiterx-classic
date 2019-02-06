@@ -33,8 +33,8 @@ $( window ).load(function() {
 	// external js: isotope.pkgd.js
 
 	// init Isotope
-	var $grid = $('.news-cards').isotope({
-		itemSelector: '.filter-item',
+	var $grid = $('.filter-grid').isotope({
+		itemSelector: '.filter-card',
 		layoutMode: 'fitRows',
 		getSortData: {
 			name: '.name',

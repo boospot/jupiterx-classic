@@ -37,7 +37,7 @@ endif;
 <section id="primary" class="content-area">
 	<?php if ( $loop->have_posts() ) : ?>
 
-        <div class="news-cards <?php echo $column_count; ?>">
+        <div class="cards-grid news-grid <?php echo $column_count; ?>">
 			<?php
 			// Start the Loop.
 			while ( $loop->have_posts() ) :
@@ -67,14 +67,14 @@ endif;
 
 				?>
 
-                <article class="news-card filter-item <?php echo $news_terms_classes; ?>"
+                <article class="single-card news-card <?php echo $news_terms_classes; ?>"
                          data-category="<?php echo $news_terms_classes; ?>">
-                    <a class="news-link" href="<?php echo $news_url; ?>" target="_blank">
-                        <picture class="thumbnail news-img">
+                    <a class="card-link" href="<?php echo $news_url; ?>" target="_blank">
+                        <picture class="thumbnail card-img">
 							<?php echo get_the_post_thumbnail( null, 'medium' ); ?>
                         </picture>
                         <div class="">
-                            <h4 class="news-title name"><?php echo get_the_title(); ?></h4>
+                            <h4 class="card-title name"><?php echo get_the_title(); ?></h4>
                             <div class="news-date"><?php echo $news_date->format( 'M d, Y' ) ?></div>
                         </div><!-- .card-content -->
                     </a>
