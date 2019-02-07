@@ -37,7 +37,7 @@ endif;
 <section id="primary" class="content-area">
 	<?php if ( $loop->have_posts() ) : ?>
 
-        <div class="cards-grid news-grid <?php echo $column_count; ?>">
+        <div class="filter-grid cards-grid news-grid <?php echo $column_count; ?>">
 			<?php
 			// Start the Loop.
 			while ( $loop->have_posts() ) :
@@ -67,7 +67,7 @@ endif;
 
 				?>
 
-                <article class="single-card news-card <?php echo $news_terms_classes; ?>"
+                <article class="filter-card single-card news-card <?php echo $news_terms_classes; ?>"
                          data-category="<?php echo $news_terms_classes; ?>">
                     <a class="card-link" href="<?php echo $news_url; ?>" target="_blank">
                         <picture class="thumbnail card-img">
